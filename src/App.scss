@@ -1,0 +1,60 @@
+@import "./styles/mixins";
+
+.App {
+  padding-top: 50px;
+
+  @include media-breakpoint-up(lg) {
+    padding-top: 75px;
+  }
+
+  .dark-background {
+    background: rgba(6, 9, 6, 0.7) !important;
+  }
+
+  .pagination-container {
+    text-align: center;
+    width: 100%;
+
+    .pagination {
+      display: inline-block;
+      padding: 0;
+      list-style: none;
+      margin-bottom: 50px;
+    }
+
+    .pagination li {
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .pagination li a {
+      display: block;
+      width: 30px;
+      height: 30px;
+      color: #aaa;
+      text-decoration: none;
+      line-height: 30px;
+      font-size: 14px;
+      text-align: center;
+      margin: 0 10px;
+    }
+
+    .pagination li.active a {
+      background: $primary;
+      border-radius: 50%;
+      color: #fff;
+    }
+  }
+
+  .footer {
+    height: 280px;
+    padding: 20px;
+    color: white;
+    z-index: 150;
+    background: linear-gradient(0deg, rgba(6, 9, 6, 0.5), rgba(6, 9, 6, 0.5)),
+      url("/images/footer-img.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}

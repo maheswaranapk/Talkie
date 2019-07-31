@@ -1,0 +1,119 @@
+@import "../../styles/variables";
+.desktop-menu {
+  .navbar {
+    height: 75px;
+    padding: 0px 35px;
+    background: white;
+    box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.3);
+    .nav-title {
+      font-size: 30px;
+      padding: 5px 10px;
+      margin: 10px 0px;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    input {
+      max-width: 550px;
+    }
+    input:focus {
+      box-shadow: none;
+    }
+    .nav-link {
+      height: 75px;
+      line-height: 75px;
+      &:hover {
+        background-color: $primary;
+        color: white;
+      }
+      &:focus {
+        background-color: $primary;
+        color: white;
+      }
+    }
+    .active {
+      background-color: $primary;
+      color: white;
+    }
+  }
+}
+
+.mobile-menu {
+  .navbar {
+    height: 50px;
+    background: white;
+    box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.3);
+
+    .bm-burger-button {
+      position: fixed;
+      width: 25px;
+      height: 25px;
+      left: 15px;
+      top: 15px;
+    }
+
+    .bm-burger-bars {
+      background: $primary;
+    }
+
+    /* Color/shape of burger icon bars on hover*/
+    .bm-burger-bars-hover {
+      background: #a90000;
+    }
+
+    /* Position and sizing of clickable cross button */
+    .bm-cross-button {
+      height: 24px;
+      width: 24px;
+    }
+
+    /* Color/shape of close button cross */
+    .bm-cross {
+      background: #bdc3c7;
+    }
+
+    .bm-menu-wrap {
+      position: fixed;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+
+    /* General sidebar styles */
+    .bm-menu {
+      background: #ffffff;
+      padding-top: 40px;
+      font-size: 18px;
+    }
+
+    input:focus {
+      box-shadow: none;
+    }
+    
+    .bm-item {
+      height: 50px;
+      line-height: 50px;
+      padding-left: 20px;
+      &:hover {
+        background-color: $primary;
+        color: white;
+      }
+      &:focus {
+        background-color: $primary;
+        color: white;
+        outline: none;
+      }
+    }
+    .active {
+      background-color: $primary;
+      color: white;
+    }
+
+    /* Styling of overlay */
+    .bm-overlay {
+      background: rgba(0, 0, 0, 0.3);
+      top: 0;
+      left: 0;
+    }
+  }
+}

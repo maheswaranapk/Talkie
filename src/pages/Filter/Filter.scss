@@ -1,0 +1,45 @@
+.filter-container {
+  min-height: 80vh;
+
+  .auto-complete-image {
+    border-radius: 5px;
+    width: 40px;
+    height: auto;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .Select-control {
+    height: 65px;
+
+    .Select-placeholder {
+      line-height: 60px;
+    }
+
+    .Select-value {
+      line-height: 60px !important;
+
+      .Select-value-label {
+        line-height: 60px;
+      }
+    }
+
+    .Select-input {
+      height: 60px;
+    }
+  }
+
+  .multi-select {
+    div {
+      // height: 65px;
+      &:first-child {
+        line-height: 65px;
+        height: auto;
+      }
+      &:nth-child(2) {
+        line-height: 65px;
+        height: auto;
+      }
+    }
+  }
+}

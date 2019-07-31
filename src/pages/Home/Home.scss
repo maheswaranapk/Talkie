@@ -1,0 +1,57 @@
+@import "../../styles/mixins";
+.slides {
+    position: relative;
+    .slick-arrow {
+      position: absolute;
+      top: 50%;
+      width: 20px;
+      z-index: 100;
+      width: 50px;
+      height: 200px;
+  
+      @include media-breakpoint-up(md) {
+        height: 300px;
+        width: 30px;
+      }
+  
+      @include media-breakpoint-up(lg) {
+        height: 350px;
+        width: 40px;
+      }
+  
+      @include media-breakpoint-up(xl) {
+        height: 400px;
+        width: 50px;
+      }
+    }
+    .slick-prev {
+      left: 0%;
+      background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.8),
+        rgba(0, 0, 0, 0)
+      ) !important;
+      &:hover {
+        background-image: linear-gradient(
+          to right,
+          rgba(0, 0, 0, 0.8),
+          rgba(0, 0, 0, 0)
+        ) !important;
+      }
+    }
+    .slick-next {
+      right: 0%;
+      background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0),
+        rgba(0, 0, 0, 0.8)
+      ) !important;
+      &:hover {
+        background-image: linear-gradient(
+          to right,
+          rgba(0, 0, 0, 0),
+          rgba(0, 0, 0, 0.8)
+        ) !important;
+      }
+    }
+  }

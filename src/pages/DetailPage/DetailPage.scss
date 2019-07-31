@@ -1,0 +1,71 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+.movie-detail-container {
+  min-height: 100vh;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+
+  .container {
+    @include media-breakpoint-down(md) {
+      max-width: 100%;
+    }
+  }
+
+  .movie-detail {
+    background: rgba(6, 9, 6, 0.7) !important;
+  }
+
+  .movie-detail {
+    width: auto;
+    height: auto;
+  }
+
+  .imdb-img {
+    color: #e5bd4c;
+    text-shadow: 1px 1px 1px #ccc;
+  }
+
+  .twitter-img {
+    color: #2caae1;
+    text-shadow: 1px 1px 1px #ccc;
+  }
+
+  .instagram-img {
+    color: #ed234b;
+  }
+
+  .movie-poster-image {
+    object-fit: contain;
+    object-position: center;
+    box-shadow: $primary 0 0 10px 3px;
+    width: 40%;
+
+    @include media-breakpoint-up(lg) {
+      width: 100%;
+    }
+  }
+
+  .movie-overview {
+    // opacity: 0.7;
+    line-height: 1.2;
+    font-size: 17px;
+  }
+
+  .movie-info {
+    opacity: 0.7;
+  }
+
+  .movie-detail-poster-container {
+    max-width: inherit;
+  }
+
+  .movie-person-row-container {
+    padding-bottom: 0px !important;
+  }
+
+  .movie-person-row-title {
+    margin-left: 0px !important;
+  }
+}

@@ -21,7 +21,7 @@
   .people-profile-image {
     object-fit: contain;
     object-position: center;
-    box-shadow: $primary 0 0 10px 3px;
+    // box-shadow: $primary 0 0 10px 3px;
     width: 40%;
 
     @include media-breakpoint-up(lg) {

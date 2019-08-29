@@ -60,18 +60,39 @@ export default class MenuBar extends React.Component {
         <div className="fixed-top d-block d-lg-none mobile-menu">
           <nav className="navbar d-flex flex-row justify-content-between align-items-center flex-nowrap p-2">
             <Menu>
-              <a id="home" className="menu-item" href="#">
+              <NavLink
+                to={"/"}
+                exact
+                activeClassName="active"
+                className="menu-item"
+              >
                 HOME
-              </a>
-              <a id="about" className="menu-item" href="#">
+              </NavLink>
+              <NavLink
+                to={"/movie-list"}
+                exact
+                activeClassName="active"
+                className="menu-item"
+              >
                 MOVIES
-              </a>
-              <a id="contact" className="menu-item" href="#">
+              </NavLink>
+              <NavLink
+                to={"/tv-list"}
+                exact
+                activeClassName="active"
+                className="menu-item"
+              >
                 TV SHOWS
-              </a>
-              <a id="contact" className="menu-item" href="#">
+              </NavLink>
+              <NavLink
+                to={"/movie-filter"}
+                exact
+                activeClassName="active"
+                className="menu-item"
+                href="#"
+              >
                 FILTER
-              </a>
+              </NavLink>
             </Menu>
 
             <input

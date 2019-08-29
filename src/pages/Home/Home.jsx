@@ -19,7 +19,7 @@ const MAX_CONTAINER_WIDTH3 = 720;
 const MAX_CONTAINER_WIDTH4 = 540;
 
 const SLICK_SETTING = {
-  autoplay: true,
+  autoplay: false,
   autoplaySpeed: 5000,
   className: "slides",
   dots: false,
@@ -27,7 +27,9 @@ const SLICK_SETTING = {
   slidesToShow: 1,
   slidesToScroll: 1,
   centerMode: true,
-  swipeToSlide: true
+  centerPadding: "20px",
+  swipeToSlide: true,
+  adaptiveHeight: true
 };
 
 class Home extends React.Component {

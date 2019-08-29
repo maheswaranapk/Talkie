@@ -8,7 +8,7 @@
 
 
   &:hover  {
-    box-shadow: $primary 0 0 10px 3px;
+    // box-shadow: $primary 0 0 10px 3px;
   }
 
   @include media-breakpoint-up(md) {
@@ -24,13 +24,15 @@
   }
 
   .cover-slide-image {
-    object-fit: fill;
+    object-fit: cover;
     border-radius: 15px;
-    height: inherit;
+    height: 100%;
     padding-left: 0%;
+    padding-bottom: 10%;
 
     @include media-breakpoint-up(md) {
       padding-left: 10%;
+      padding-bottom: 0%;
     }
 
     @include media-breakpoint-up(lg) {
@@ -59,8 +61,17 @@
   }
 
   .movie-title {
-    font-weight: 600;
+    font-weight: 500;
     color: #fff;
+    font-size: 20px;
+
+    @include media-breakpoint-up(lg) {
+      font-size: 25px;
+      font-weight: 500;
+    }
+    @include media-breakpoint-up(xl) {
+      font-size: 30px;
+    }
   }
 
   .movie-overview {
@@ -71,8 +82,15 @@
     overflow: hidden;
     -webkit-box-orient: vertical;
     display: -webkit-box;
-    line-height: 28px;
     overflow-wrap: break-word;
+    font-size: 14px;
+
+    @include media-breakpoint-up(lg) {
+      font-size: 16px;
+    }
+    @include media-breakpoint-up(xl) {
+      font-size: 20px;
+    }
   }
 }
 

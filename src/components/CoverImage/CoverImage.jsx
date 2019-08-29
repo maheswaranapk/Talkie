@@ -29,18 +29,20 @@ export default class CoverImage extends React.Component {
               className="cover-slide-image w-100"
             />
             <div
-              className="d-flex d-md-none flex-column justify-content-end pb-3 movie-title cover-text-parent t-pl-4"
+              className="d-flex d-md-none flex-column justify-content-end pb-2 movie-title cover-text-parent t-pl-4 t-pr-4 border-radius"
               style={{
                 background:
-                  "linear-gradient(to right, " +
+                  "linear-gradient(to top, " +
                   this.state.colors[0] +
-                  ", rgba(0,0,0,0))"
+                  ", " +
+                  this.state.colors[0] +
+                  ", rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,0))"
               }}
             >
               <MovieDetail movie={movie} />
             </div>
             <div
-              className="d-none d-md-flex flex-column justify-content-center movie-title cover-text-parent t-pl-4"
+              className="d-none d-md-flex d-lg-none flex-column justify-content-center movie-title cover-text-parent t-pl-4 t-pr-4 border-radius"
               style={{
                 background:
                   "linear-gradient(to right, " +
@@ -53,7 +55,7 @@ export default class CoverImage extends React.Component {
               <MovieDetail movie={movie} />
             </div>
             <div
-              className="d-none d-lg-flex flex-column justify-content-center movie-title cover-text-parent pl-5"
+              className="d-none d-lg-flex flex-column justify-content-center movie-title cover-text-parent pl-5 t-pr-4 border-radius"
               style={{
                 background:
                   "linear-gradient(to right, " +
@@ -77,9 +79,9 @@ export default class CoverImage extends React.Component {
 const MovieDetail = ({ movie }) => {
   return (
     <React.Fragment>
-      <h4 className="d-block d-lg-none movie-title pb-3">{movie.title}</h4>
-      <h3 className="d-none d-lg-block movie-title">{movie.title}</h3>
-      <div className="d-none d-lg-block">
+      <h4 className="d-block d-md-none movie-title text-center pb-3">{movie.title}</h4>
+      <h3 className="d-none d-md-block movie-title">{movie.title}</h3>
+      <div className="d-none d-md-block">
         <div className="movie-overview">{movie.overview}</div>
       </div>
     </React.Fragment>

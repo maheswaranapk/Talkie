@@ -29,7 +29,6 @@ class MoviePersonRow extends React.Component {
     const scrollLeft = node.scrollLeft;
 
     console.log(node.scrollWidth - node.clientWidth);
-    
 
     // if (scrollLeft === 0) {
     //   console.log("First Element Reached");
@@ -98,7 +97,7 @@ class MoviePersonRow extends React.Component {
 
             {(movieList || personList) && (
               <React.Fragment>
-                <div className="position-relative">
+                {/* <div className="position-relative">
                   {!row && (
                     <button
                       type="button"
@@ -108,33 +107,38 @@ class MoviePersonRow extends React.Component {
                         " slick-arrow slick-prev"
                       }
                     />
-                  )}
-                  <div
-                    className={
-                      "d-flex flex-row movie-person-row " + (row ? "row" : "")
-                    }
-                    onScroll={this.listenScrollEvent}
-                  >
-                    {movieList &&
-                      movieList.map(movie => (
-                        <div
-                          className={
-                            (showThree ? "col-md-4" : "col-lg-3 col-md-4") +
-                            " col-6 t-pt-4 t-pb-4"
-                          }
-                        >
-                          <MovieTvCard movie={movie} character />
-                        </div>
-                      ))}
+                  )} */}
+                <div
+                  className={
+                    "d-flex flex-row movie-person-row " + (row ? "row" : "")
+                  }
+                  onScroll={this.listenScrollEvent}
+                >
+                  {movieList &&
+                    movieList.length > 0 &&
+                    movieList.map(movie => (
+                      <div
+                        className={
+                          (row
+                            ? "col-6 col-lg-3 col-md-4"
+                            : showThree
+                            ? "col-poster-3"
+                            : "col-poster") + " t-pt-4 t-pb-4"
+                        }
+                      >
+                        <MovieTvCard movie={movie} character />
+                      </div>
+                    ))}
 
-                    {personList &&
-                      personList.map(person => (
-                        <div className="col-6 col-md-4 col-lg-3 t-pt-4 t-pb-4">
-                          <PersonCard person={person} />
-                        </div>
-                      ))}
-                  </div>
-                  {!row && (
+                  {personList &&
+                    personList.length > 0 &&
+                    personList.map(person => (
+                      <div className="col-poster t-pt-4 t-pb-4">
+                        <PersonCard person={person} />
+                      </div>
+                    ))}
+                </div>
+                {/* {!row && (
                     <button
                       type="button"
                       data-role="none"
@@ -144,7 +148,7 @@ class MoviePersonRow extends React.Component {
                       }
                     />
                   )}
-                </div>
+                </div> */}
               </React.Fragment>
             )}
 

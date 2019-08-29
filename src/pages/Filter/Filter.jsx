@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { withRouter } from "react-router-dom";
 import listAction from "../../store/actions/list.action";
 import Select from "react-select";
 import MoviePersonRow from "../../components/MoviePersonRow/MoviePersonRow";
@@ -11,6 +12,7 @@ import { Footer } from "../../components/Footer/Footer";
 import Pagination from "react-js-pagination";
 import Loader from "../../components/Loader/Loader";
 import api from "../../constants/api.constant.js";
+import queryString from "query-string";
 
 import "./Filter.scss";
 
@@ -21,7 +23,7 @@ const SORT_ORDER = [
   { value: "primary_release_date.asc", label: "Release Date Ascending" }
 ];
 
-const GENRE_TYPE = [
+const GENRE_TYPE_MOVIE = [
   { value: null, label: "All Genres" },
   { value: 28, label: "Action" },
   { value: 12, label: "Adventure" },
@@ -42,6 +44,88 @@ const GENRE_TYPE = [
   { value: 53, label: "Thriller" },
   { value: 10752, label: "War" },
   { value: 37, label: "Western" }
+];
+
+const GENRE_TYPE_TV = [
+  { value: null, label: "All Genres" },
+  {
+    value: 10759,
+    label: "Action & Adventure"
+  },
+  {
+    value: 16,
+    label: "Animation"
+  },
+  {
+    value: 35,
+    label: "Comedy"
+  },
+  {
+    value: 80,
+    label: "Crime"
+  },
+  {
+    value: 99,
+    label: "Documentary"
+  },
+  {
+    value: 18,
+    label: "Drama"
+  },
+  {
+    value: 10751,
+    label: "Family"
+  },
+  {
+    value: 10762,
+    label: "Kids"
+  },
+  {
+    value: 9648,
+    label: "Mystery"
+  },
+  {
+    value: 10763,
+    label: "News"
+  },
+  {
+    value: 10764,
+    label: "Reality"
+  },
+  {
+    value: 10765,
+    label: "Sci-Fi & Fantasy"
+  },
+  {
+    value: 10766,
+    label: "Soap"
+  },
+  {
+    value: 10767,
+    label: "Talk"
+  },
+  {
+    value: 10768,
+    label: "War & Politics"
+  },
+  {
+    value: 37,
+    label: "Western"
+  }
+];
+
+const TV = "/tv";
+const MOVIE = "/movie";
+
+const MOVIE_TV_FILTER = [
+  {
+    title: "Movie",
+    tag: MOVIE
+  },
+  {
+    title: "TV",
+    tag: TV
+  }
 ];
 
 const promiseOptions = inputValue => {
@@ -80,10 +164,18 @@ const promiseOptions = inputValue => {
 class Filter extends React.Component {
   constructor(props) {
     super(props);
-    this.basePath = "discover/movie";
+
+    this.basePath = "discover";
+    var parsedParams = queryString.parse(this.props.location.search);
+    console.log(parsedParams);
+
     this.state = {
       sortBy: SORT_ORDER[0],
-      genre: null,
+      selectedTag: parsedParams.type ? parsedParams.type : MOVIE,
+      genre:
+        parsedParams.genre_id && parsedParams.genre_label
+          ? { value: parsedParams.genre_id, label: parsedParams.genre_label }
+          : null,
       cast: []
     };
   }
@@ -96,10 +188,30 @@ class Filter extends React.Component {
     this.callApi(page);
   };
 
+  ChangeFilter = tag => {
+    this.setState(
+      {
+        selectedTag: tag,
+        genre: this.getGenreList(tag)[0]
+      },
+      () => {
+        this.callApi();
+      }
+    );
+  };
+
   callApi = (page = 1) => {
-    const { sortBy, genre, cast, crew } = this.state;
-    let apiPath = this.basePath + "?sort_by=" + sortBy.value + "&page=" + page;
+    const { sortBy, genre, cast, crew, selectedTag } = this.state;
+    let apiPath =
+      this.basePath +
+      selectedTag +
+      "?sort_by=" +
+      sortBy.value +
+      "&page=" +
+      page;
     if (genre && genre.value) apiPath = apiPath + "&with_genres=" + genre.value;
+    console.log(apiPath);
+
     if (cast && cast.length > 0) {
       apiPath =
         apiPath +
@@ -129,6 +241,8 @@ class Filter extends React.Component {
   });
 
   handleGenreChange = value => {
+    console.log(value);
+
     this.setState({ genre: value }, this.callApi);
   };
 
@@ -144,42 +258,66 @@ class Filter extends React.Component {
     this.setState({ crew: value }, this.callApi);
   };
 
+  getGenreList = selectedTag =>
+    selectedTag === MOVIE ? GENRE_TYPE_MOVIE : GENRE_TYPE_TV;
+
   render() {
     const { discoverList, isDiscoverListLoading } = this.props;
+    const { genre, selectedTag } = this.state;
+
     return (
       <div className="container filter-container">
         <div className="container t-mt-4">
+          <div className="movies-filter d-flex justify-content-center justify-content-lg-end t-pb-4">
+            <ul>
+              {MOVIE_TV_FILTER.map(item => (
+                <li
+                  key={item.slug}
+                  className={item.tag === selectedTag ? "active" : ""}
+                  onClick={() => this.ChangeFilter(item.tag)}
+                >
+                  {item.title}
+                </li>
+              ))}
+            </ul>
+          </div>
           <div className="row">
-            <AsyncSelect
-              className="col-6 p-0 t-mb-4 t-pr-2 multi-select"
-              isMulti
-              defaultOptions
-              placeholder="Select Cast.."
-              onChange={this.handleCastChange}
-              loadOptions={debounce(promiseOptions, 750)}
-              theme={this.getTheme}
-            />
-            <AsyncSelect
-              className="col-6 p-0 t-mb-4 t-pl-2 multi-select"
-              isMulti
-              placeholder="Select Crew.."
-              onChange={this.handleCrewChange}
-              loadOptions={debounce(promiseOptions, 750)}
-              theme={this.getTheme}
-            />
+            {selectedTag === MOVIE && (
+              <React.Fragment>
+                <AsyncSelect
+                  className="col-12 col-md-6 cast-select multi-select"
+                  isMulti
+                  defaultOptions
+                  placeholder="Select Cast.."
+                  onChange={this.handleCastChange}
+                  loadOptions={debounce(promiseOptions, 750)}
+                  theme={this.getTheme}
+                />
+                <AsyncSelect
+                  className="col-12 col-md-6 crew-select multi-select"
+                  isMulti
+                  placeholder="Select Crew.."
+                  onChange={this.handleCrewChange}
+                  loadOptions={debounce(promiseOptions, 750)}
+                  theme={this.getTheme}
+                />
+              </React.Fragment>
+            )}
             <Select
               options={SORT_ORDER}
-              className="col-6 p-0 t-pr-2"
+              className="col-6 sort-select"
               onChange={this.handleSortByChange}
               defaultValue={SORT_ORDER[0]}
               theme={this.getTheme}
+              isSearchable={false}
             />
             <Select
-              options={GENRE_TYPE}
-              className="col-6 p-0 t-pl-2"
+              options={this.getGenreList(selectedTag)}
+              className="col-6 tag-select"
               onChange={this.handleGenreChange}
-              defaultValue={GENRE_TYPE[0]}
+              value={genre ? genre : this.getGenreList(selectedTag)[0]}
               theme={this.getTheme}
+              isSearchable={false}
             />
           </div>
 
@@ -227,4 +365,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Filter);
+)(withRouter(Filter));

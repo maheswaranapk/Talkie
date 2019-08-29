@@ -8,6 +8,7 @@ import MoviePersonRow from "../../components/MoviePersonRow/MoviePersonRow";
 import ExternalID from "../../components/ExternaIId/ExternalId";
 import Loader from "../../components/Loader/Loader";
 import { Footer } from "../../components/Footer/Footer";
+import ShowMoreText from 'react-show-more-text';
 
 import "./PeopleDetail.scss";
 
@@ -76,7 +77,9 @@ class PeopleDetail extends React.Component {
                 {peopleDetail.gender && (
                   <DetailRow
                     title="Gender"
-                    description={peopleDetail.gender === 2 ? "Male" : "Female"}
+                    description={
+                      peopleDetail.gender === 2 ? "Male" : "Female"
+                    }
                   />
                 )}
                 {peopleDetail.birthday && (
@@ -104,9 +107,15 @@ class PeopleDetail extends React.Component {
                   <h1 className="t-pt-4  t-pb-4 ">{peopleDetail.name}</h1>
                 )}
                 {peopleDetail.biography && (
-                  <div className="t-pt-2 text-justify people-overview t-pb-4">
+                  <ShowMoreText
+                    className="t-pt-2 text-justify people-overview t-pb-4"
+                    lines={3}
+                    more="Show more"
+                    less="Show less"
+                    expanded={false}
+                  >
                     {peopleDetail.biography}
-                  </div>
+                  </ShowMoreText>
                 )}
                 <MoviePersonRow
                   title="Movies"

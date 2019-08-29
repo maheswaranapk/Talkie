@@ -131,6 +131,10 @@ body {
     line-height: 1;
   }
 
+  h1 {
+    font-size: 30px;
+  }
+
   .col-poster {
     padding: 0 15px;
     flex: 0 0 45%;
@@ -145,7 +149,18 @@ body {
       flex: 0 0 23.5% !important;
       max-width: 23.5% !important;
     }
-    padding-left: 0px;
+    // padding-left: 0px;
+  }
+
+  .col-poster-3 {
+    padding: 0 15px;
+    flex: 0 0 45%;
+    max-width: 45%;
+
+    @include media-breakpoint-up(md) {
+      flex: 0 0 31%;
+      max-width: 31%;
+    }
   }
 
   .border-radius {

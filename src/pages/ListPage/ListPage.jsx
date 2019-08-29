@@ -90,7 +90,7 @@ class ListPage extends React.Component {
       {isListLoading && <Loader />}
         {list && list.results && (
           <div className="container">
-            <div className="movies-filter d-flex justify-content-center justify-content-lg-end t-pt-4 t-mr-4">
+            <div className="movies-filter d-flex justify-content-center justify-content-lg-end t-pt-4">
               <ul>
                 {(path === MOVIE ? MOVIE_FILTER : TV_FILTER).map(item => (
                   <li

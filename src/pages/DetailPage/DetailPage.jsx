@@ -8,10 +8,11 @@ import MoviePersonRow from "../../components/MoviePersonRow/MoviePersonRow";
 import ExternalID from "../../components/ExternaIId/ExternalId";
 import { Footer } from "../../components/Footer/Footer";
 import Loader from "../../components/Loader/Loader";
+import { Link } from "react-router-dom";
 import "./DetailPage.scss";
 
-const TV = "/tv/";
-const MOVIE = "/movie/";
+const TV = "/tv";
+const MOVIE = "/movie";
 
 class DetailPage extends React.Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class DetailPage extends React.Component {
   componentDidMount() {
     window.scrollTo(0, 0);
     const { path, id } = this.state;
-    this.props.actions.getMovieDetail(path + id);
+    this.props.actions.getMovieDetail(path + "/" + id);
   }
 
   componentDidUpdate(prevProps) {
@@ -42,7 +43,7 @@ class DetailPage extends React.Component {
         },
         () => {
           const { path, id } = this.state;
-          this.props.actions.getMovieDetail(path + id);
+          this.props.actions.getMovieDetail(path+ "/" + id);
         }
       );
     }
@@ -57,6 +58,8 @@ class DetailPage extends React.Component {
       movieExternal,
       isMovieDetailLoading
     } = this.props;
+
+    const {path} = this.state;
 
     if (!movieDetail && this.isCreatorAdded) this.isCreatorAdded = false;
 
@@ -101,9 +104,11 @@ class DetailPage extends React.Component {
                   <div className="w-100 t-mb-4 d-none d-lg-block">
                     {movieDetail.genres.map(genre => {
                       return (
+                        <Link to={"/movie-filter?genre_id="+genre.id+"&genre_label="+genre.name+"&type="+path}>
                         <div className="tag col cursor-pointer">
                           {genre.name}
                         </div>
+                        </Link>
                       );
                     })}
                   </div>

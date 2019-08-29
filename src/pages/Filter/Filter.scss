@@ -1,3 +1,5 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
 .filter-container {
   min-height: 80vh;
 
@@ -26,6 +28,42 @@
 
     .Select-input {
       height: 60px;
+    }
+  }
+
+  .cast-select {
+    margin-bottom: 7px;
+
+    @include media-breakpoint-up(md) {
+      padding-left: 15px;
+      padding-right: 7px;
+    }
+  }
+
+  .crew-select {
+    margin-bottom: 7px;
+
+    @include media-breakpoint-up(md) {
+      padding-right: 15px;
+      padding-left: 7px;
+    }
+  }
+
+  .sort-select {
+    padding-right: 7px;
+
+    @include media-breakpoint-up(md) {
+      padding-left: 15px;
+      padding-right: 7px;
+    }
+  }
+
+  .tag-select {
+    padding-left: 7px;
+
+    @include media-breakpoint-up(md) {
+      padding-left: 7px;
+      padding-right: 15px;
     }
   }
 

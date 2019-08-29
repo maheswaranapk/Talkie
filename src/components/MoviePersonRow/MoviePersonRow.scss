@@ -2,7 +2,6 @@
 @import "../../styles/mixins";
 
 .movie-person-row-container {
-  overflow-x: scroll;
   .slick-next {
     width: 50px;
     height: 100%;
@@ -75,7 +74,7 @@
     }
 
     .movie-row-parent:hover {
-      box-shadow: $primary 0 0 8px 3px;
+      // box-shadow: $primary 0 0 8px 3px;
     }
 
     .person-row-parent {
@@ -114,7 +113,7 @@
     }
 
     .person-row-parent:hover {
-      box-shadow: $primary 0 0 8px 3px;
+      // box-shadow: $primary 0 0 8px 3px;
     }
   }
 

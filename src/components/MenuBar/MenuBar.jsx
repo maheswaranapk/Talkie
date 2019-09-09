@@ -1,13 +1,122 @@
 import React from "react";
 import { slide as Menu } from "react-burger-menu";
 import { NavLink, Link } from "react-router-dom";
+import AsyncSelect from "react-select/async";
+import { withRouter } from "react-router-dom";
+import homeService from "../../services/home.service";
+import debounce from "lodash.debounce";
+import Tag from "../../constants/tag.constants";
+
 import "./MenuBar.scss";
 
-export default class MenuBar extends React.Component {
+const customStyles = {
+  control: (base, state) => ({
+    ...base,
+    "&:hover": { borderColor: "#c62828" },
+    border: "1px solid lightgray",
+    boxShadow: "none"
+  }),
+  indicatorSeparator: () => {}, // removes the "stick"
+  dropdownIndicator: defaultStyles => ({
+    ...defaultStyles,
+    display: "none"
+  }),
+  option: (styles, { isFocused }) => {
+    return {
+      ...styles,
+      cursor: "pointer",
+      backgroundColor: isFocused ? "#c62828" : "white",
+      color: isFocused ? "rgba(255, 255, 255)" : "#c62828",
+      fontWeight: isFocused ? "700" : "400"
+    };
+  }
+};
+
+const loadOptions = (inputValue, callback) => {
+  homeService
+    .multiSearch(inputValue)
+    .then(response => {
+      if (response.data.results.length === 0) {
+        callback([]);
+        return;
+      } else if (response.data.results.length >= 4) {
+        response.data.results = response.data.results.slice(0, 4);
+      }
+      console.log(response.data.results);
+      let options = response.data.results.map(result => ({
+        // value: result.id,
+        value: { media_type: result.media_type, id: result.id },
+        label1: result.media_type === "movie" ? result.title : result.name,
+        label: (
+          <div>
+            <i
+              className={
+                "t-pr-2 auto-complete-image " +
+                (result.media_type === "person"
+                  ? "fas fa-user"
+                  : result.media_type === "movie"
+                  ? "fas fa-film"
+                  : "fas fa-tv")
+              }
+              alt={result.media_type === "movie" ? result.title : result.name}
+            />
+            {result.media_type === "movie" ? result.title : result.name}
+          </div>
+        )
+      }));
+      options.push({
+        value: null,
+        inputValue: inputValue,
+        label: 'Show Movie Results for "' + inputValue + '"',
+        param: "?type="+Tag.MOVIE+"&page=1"
+      });
+      options.push({
+        value: null,
+        inputValue: inputValue,
+        label: 'Show TV Show Results for "' + inputValue + '"',
+        param: "?type="+Tag.TV+"&page=1"
+      });
+      options.push({
+        value: null,
+        inputValue: inputValue,
+        label: 'Show People Results for "' + inputValue + '"',
+        param: "?type="+Tag.PEOPLE+"&page=1"
+      });
+
+      callback(options);
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+};
+
+class MenuBar extends React.Component {
   showSettings = event => {
     event.preventDefault();
   };
+
+  state = {
+    selectedOption: null
+  };
+
+  handleChange = selectedOption => {
+    console.log(selectedOption);
+    if (selectedOption.value) {
+      if ((selectedOption.value.media_type = "movie"))
+        this.props.history.push("/movie-detail/" + selectedOption.value.id);
+      else if ((selectedOption.value.media_type = "tv"))
+        this.props.history.push("/tv-detail/" + selectedOption.value.id);
+      else if ((selectedOption.value.media_type = "person"))
+        this.props.history.push("/people-detail/" + selectedOption.value.id);
+    } else {
+      this.props.history.push("/search/" + selectedOption.inputValue + selectedOption.param);
+    }
+    this.setState({ selectedOption: null });
+    this.forceUpdate();
+  };
+
   render() {
+    const { selectedOption } = this.state;
     return (
       <React.Fragment>
         <div className="fixed-top d-none d-lg-block desktop-menu">
@@ -15,11 +124,17 @@ export default class MenuBar extends React.Component {
             <Link to={"/"} className="logo nav-title" href="#">
               TALKIE
             </Link>
-            <input
-              className="form-control col-3 col-lg-4 col-xl-5 text-primary"
-              type="search"
-              placeholder="Search here..."
-              aria-label="Search"
+            <AsyncSelect
+              className="col-3 col-lg-4 col-xl-5 text-primary"
+              placeholder="Search Movies, TV Shows, People here..."
+              onChange={this.handleChange}
+              openMenuOnClick={true}
+              value={selectedOption}
+              classNamePrefix="select"
+              styles={customStyles}
+              loadOptions={debounce(loadOptions, 750)}
+              cacheOptions
+              defaultOptions
             />
             <div className="navbar-nav d-flex flex-row">
               <NavLink
@@ -47,7 +162,7 @@ export default class MenuBar extends React.Component {
                 TV SHOWS
               </NavLink>
               <NavLink
-                to={"/movie-filter"}
+                to={"/filter"}
                 exact
                 activeClassName="active"
                 className={"nav-link pl-3 pr-3 p-0"}
@@ -85,7 +200,7 @@ export default class MenuBar extends React.Component {
                 TV SHOWS
               </NavLink>
               <NavLink
-                to={"/movie-filter"}
+                to={"/filter"}
                 exact
                 activeClassName="active"
                 className="menu-item"
@@ -107,3 +222,5 @@ export default class MenuBar extends React.Component {
     );
   }
 }
+
+export default withRouter(MenuBar);

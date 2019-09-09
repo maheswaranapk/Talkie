@@ -6,6 +6,7 @@ import MenuBar from "./components/MenuBar/MenuBar";
 import Home from "./pages/Home/Home";
 import DetailPage from "./pages/DetailPage/DetailPage";
 import ListPage from "./pages/ListPage/ListPage";
+import SearchPage from "./pages/SearchPage/SearchPage";
 import PeopleDetail from "./pages/PeopleDetail/PeopleDetail";
 import Filter from "./pages/Filter/Filter";
 import "./App.scss";
@@ -38,8 +39,13 @@ class App extends React.Component {
               path="/tv-detail/:id"
               component={() => <DetailPage isMovie={false} />}
             />
+            <Route
+              exact
+              path="/search/:id"
+              component={() => <SearchPage isMovie={false} />}
+            />
             <Route exact path="/people-detail/:id" component={PeopleDetail} />
-            <Route exact path="/movie-filter" component={Filter} />
+            <Route exact path="/filter" component={Filter} />
           </Switch>
         </div>
       </div>

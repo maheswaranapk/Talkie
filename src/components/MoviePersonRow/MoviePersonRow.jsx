@@ -28,7 +28,7 @@ class MoviePersonRow extends React.Component {
     let node = event.target;
     const scrollLeft = node.scrollLeft;
 
-    console.log(node.scrollWidth - node.clientWidth);
+    // console.log(node.scrollWidth - node.clientWidth);
 
     // if (scrollLeft === 0) {
     //   console.log("First Element Reached");
@@ -59,7 +59,8 @@ class MoviePersonRow extends React.Component {
       videoList = [],
       row,
       character,
-      showThree
+      showThree,
+      target
     } = this.props;
 
     const { showLeft, showRight } = this.state;
@@ -126,14 +127,20 @@ class MoviePersonRow extends React.Component {
                             : "col-poster") + " t-pt-4 t-pb-4"
                         }
                       >
-                        <MovieTvCard movie={movie} character />
+                        <MovieTvCard movie={movie} character target={target}/>
                       </div>
                     ))}
 
                   {personList &&
                     personList.length > 0 &&
                     personList.map(person => (
-                      <div className="col-poster t-pt-4 t-pb-4">
+                      <div
+                        className={
+                          (row
+                            ? "col-6 col-lg-3 col-md-4 t-pt-4 t-pb-4"
+                            : "col-poster t-pt-4 t-pb-4")
+                        }
+                      >
                         <PersonCard person={person} />
                       </div>
                     ))}
@@ -170,9 +177,9 @@ class MoviePersonRow extends React.Component {
   }
 }
 
-const MovieTvCard = ({ movie, character }) => {
+const MovieTvCard = ({ movie, character, target }) => {
   return (
-    <Link to={(movie.title ? "/movie-detail/" : "/tv-detail/") + movie.id}>
+    <Link to={(movie.title ? "/movie-detail/" : "/tv-detail/") + movie.id} target={target}>
       <div className="movie-row-parent h-100 border-radius cursor-pointer">
         <img
           src={

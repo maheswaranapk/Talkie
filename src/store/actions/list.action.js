@@ -5,6 +5,11 @@ const getList = data => ({
   payload: data
 });
 
+const getSearchList = data => ({
+  type: actionTypes.SEARCH_REQUEST,
+  payload: data
+});
+
 const getDiscoverList = data => ({
   type: actionTypes.DISCOVER_REQUEST,
   payload: data
@@ -12,6 +17,7 @@ const getDiscoverList = data => ({
 
 const movieDetailActions = {
   getList,
+  getSearchList,
   getDiscoverList
 };
 

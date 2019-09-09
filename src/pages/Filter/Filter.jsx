@@ -6,127 +6,23 @@ import listAction from "../../store/actions/list.action";
 import Select from "react-select";
 import MoviePersonRow from "../../components/MoviePersonRow/MoviePersonRow";
 import AsyncSelect from "react-select/async";
+import queryString from "query-string";
+
 import axiosInstance from "../../services/axios";
 import debounce from "es6-promise-debounce";
 import { Footer } from "../../components/Footer/Footer";
 import Pagination from "react-js-pagination";
 import Loader from "../../components/Loader/Loader";
 import api from "../../constants/api.constant.js";
-import queryString from "query-string";
+import {
+  SORT_ORDER,
+  GENRE_TYPE_MOVIE,
+  GENRE_TYPE_TV,
+  MOVIE,
+  MOVIE_TV_FILTER
+} from "../../constants/filter.constants";
 
 import "./Filter.scss";
-
-const SORT_ORDER = [
-  { value: "popularity.desc", label: "Popularity Descending" },
-  { value: "popularity.asc", label: "Popularity Ascending" },
-  { value: "primary_release_date.desc", label: "Release Date Descending" },
-  { value: "primary_release_date.asc", label: "Release Date Ascending" }
-];
-
-const GENRE_TYPE_MOVIE = [
-  { value: null, label: "All Genres" },
-  { value: 28, label: "Action" },
-  { value: 12, label: "Adventure" },
-  { value: 16, label: "Animation" },
-  { value: 35, label: "Comedy" },
-  { value: 80, label: "Crime" },
-  { value: 99, label: "Documentary" },
-  { value: 18, label: "Drama" },
-  { value: 10751, label: "Family" },
-  { value: 14, label: "Fantasy" },
-  { value: 36, label: "History" },
-  { value: 27, label: "Horror" },
-  { value: 10402, label: "Music" },
-  { value: 9648, label: "Mystery" },
-  { value: 10749, label: "Romance" },
-  { value: 878, label: "Science Fiction" },
-  { value: 10770, label: "TV Movie" },
-  { value: 53, label: "Thriller" },
-  { value: 10752, label: "War" },
-  { value: 37, label: "Western" }
-];
-
-const GENRE_TYPE_TV = [
-  { value: null, label: "All Genres" },
-  {
-    value: 10759,
-    label: "Action & Adventure"
-  },
-  {
-    value: 16,
-    label: "Animation"
-  },
-  {
-    value: 35,
-    label: "Comedy"
-  },
-  {
-    value: 80,
-    label: "Crime"
-  },
-  {
-    value: 99,
-    label: "Documentary"
-  },
-  {
-    value: 18,
-    label: "Drama"
-  },
-  {
-    value: 10751,
-    label: "Family"
-  },
-  {
-    value: 10762,
-    label: "Kids"
-  },
-  {
-    value: 9648,
-    label: "Mystery"
-  },
-  {
-    value: 10763,
-    label: "News"
-  },
-  {
-    value: 10764,
-    label: "Reality"
-  },
-  {
-    value: 10765,
-    label: "Sci-Fi & Fantasy"
-  },
-  {
-    value: 10766,
-    label: "Soap"
-  },
-  {
-    value: 10767,
-    label: "Talk"
-  },
-  {
-    value: 10768,
-    label: "War & Politics"
-  },
-  {
-    value: 37,
-    label: "Western"
-  }
-];
-
-const TV = "/tv";
-const MOVIE = "/movie";
-
-const MOVIE_TV_FILTER = [
-  {
-    title: "Movie",
-    tag: MOVIE
-  },
-  {
-    title: "TV",
-    tag: TV
-  }
-];
 
 const promiseOptions = inputValue => {
   return axiosInstance
@@ -167,32 +63,58 @@ class Filter extends React.Component {
 
     this.basePath = "discover";
     var parsedParams = queryString.parse(this.props.location.search);
-    console.log(parsedParams);
+    if (parsedParams.sortBy) console.log(JSON.parse(parsedParams.sortBy));
 
     this.state = {
-      sortBy: SORT_ORDER[0],
+      sortBy: parsedParams.sortBy
+        ? JSON.parse(parsedParams.sortBy)
+        : SORT_ORDER[0],
       selectedTag: parsedParams.type ? parsedParams.type : MOVIE,
-      genre:
-        parsedParams.genre_id && parsedParams.genre_label
-          ? { value: parsedParams.genre_id, label: parsedParams.genre_label }
-          : null,
-      cast: []
+      genre: parsedParams.genre ? JSON.parse(parsedParams.genre) : null,
+      cast: parsedParams.cast ? JSON.parse(parsedParams.cast) : [],
+      crew: parsedParams.crew ? JSON.parse(parsedParams.crew) : [],
+      page: parsedParams.page ? parsedParams.page : 1
     };
+    
+    this.props.history.push({
+      search: "" 
+    });
   }
 
   componentDidMount() {
     this.callApi();
   }
 
+  setQuery = () => {
+    const { sortBy, genre, cast, crew, selectedTag, page } = this.state;
+    const query = { type: selectedTag };
+
+    if (genre) query.genre = JSON.stringify(genre);
+    if (sortBy) query.sortBy = JSON.stringify(sortBy);
+    if (cast) query.cast = JSON.stringify(cast);
+    if (cast) query.crew = JSON.stringify(crew);
+    query.page = page;
+
+    console.log(cast);
+    console.log(query.cast);
+
+    this.props.history.push({
+      search: "?" + queryString.stringify(query)
+    });
+  };
+
   handlePageChange = page => {
-    this.callApi(page);
+    this.setState({ page }, () => {
+      this.callApi();
+    });
   };
 
   ChangeFilter = tag => {
     this.setState(
       {
         selectedTag: tag,
-        genre: this.getGenreList(tag)[0]
+        genre: this.getGenreList(tag)[0],
+        page: 1
       },
       () => {
         this.callApi();
@@ -200,8 +122,12 @@ class Filter extends React.Component {
     );
   };
 
-  callApi = (page = 1) => {
-    const { sortBy, genre, cast, crew, selectedTag } = this.state;
+  callApi = () => {
+    const { sortBy, genre, cast, crew, selectedTag, page } = this.state;
+    window.scrollTo(0, 0);
+    console.log(this.basePath);
+    
+    // this.setQuery();
     let apiPath =
       this.basePath +
       selectedTag +
@@ -210,7 +136,6 @@ class Filter extends React.Component {
       "&page=" +
       page;
     if (genre && genre.value) apiPath = apiPath + "&with_genres=" + genre.value;
-    console.log(apiPath);
 
     if (cast && cast.length > 0) {
       apiPath =
@@ -235,27 +160,25 @@ class Filter extends React.Component {
     ...theme,
     colors: {
       ...theme.colors,
-      primary25: "#c62828",
+      // primary25: "#c62828",
       primary: "#c62828"
     }
   });
 
   handleGenreChange = value => {
-    console.log(value);
-
-    this.setState({ genre: value }, this.callApi);
+    this.setState({ genre: value, page: 1 }, this.callApi);
   };
 
   handleSortByChange = value => {
-    this.setState({ sortBy: value }, this.callApi);
+    this.setState({ sortBy: value, page: 1 }, this.callApi);
   };
 
   handleCastChange = value => {
-    this.setState({ cast: value }, this.callApi);
+    this.setState({ cast: value, page: 1 }, this.callApi);
   };
 
   handleCrewChange = value => {
-    this.setState({ crew: value }, this.callApi);
+    this.setState({ crew: value, page: 1 }, this.callApi);
   };
 
   getGenreList = selectedTag =>
@@ -263,83 +186,89 @@ class Filter extends React.Component {
 
   render() {
     const { discoverList, isDiscoverListLoading } = this.props;
-    const { genre, selectedTag } = this.state;
+    const { genre, selectedTag, sortBy, cast, crew } = this.state;
 
     return (
-      <div className="container filter-container">
-        <div className="container t-mt-4">
-          <div className="movies-filter d-flex justify-content-center justify-content-lg-end t-pb-4">
-            <ul>
-              {MOVIE_TV_FILTER.map(item => (
-                <li
-                  key={item.slug}
-                  className={item.tag === selectedTag ? "active" : ""}
-                  onClick={() => this.ChangeFilter(item.tag)}
-                >
-                  {item.title}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="row">
-            {selectedTag === MOVIE && (
+      <div className="container-fluid">
+        <div className="container filter-container">
+          <div className="container t-mt-4">
+            <div className="movies-filter d-flex justify-content-center justify-content-lg-end t-pb-4">
+              <ul>
+                {MOVIE_TV_FILTER.map(item => (
+                  <li
+                    key={item.slug}
+                    className={item.tag === selectedTag ? "active" : ""}
+                    onClick={() => this.ChangeFilter(item.tag)}
+                  >
+                    {item.title}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="row">
+              {selectedTag === MOVIE && (
+                <React.Fragment>
+                  <AsyncSelect
+                    className="col-12 col-md-6 cast-select multi-select"
+                    isMulti
+                    defaultOptions
+                    placeholder="Select Cast.."
+                    onChange={this.handleCastChange}
+                    loadOptions={debounce(promiseOptions, 750)}
+                    theme={this.getTheme}
+                    defaultOptions={cast ? true : false}
+                    value={cast}
+                  />
+                  <AsyncSelect
+                    className="col-12 col-md-6 crew-select multi-select"
+                    isMulti
+                    placeholder="Select Crew.."
+                    onChange={this.handleCrewChange}
+                    loadOptions={debounce(promiseOptions, 750)}
+                    theme={this.getTheme}
+                    defaultOptions={crew ? true : false}
+                  />
+                </React.Fragment>
+              )}
+              <Select
+                options={SORT_ORDER}
+                className="col-6 sort-select"
+                onChange={this.handleSortByChange}
+                defaultValue={SORT_ORDER[0]}
+                theme={this.getTheme}
+                isSearchable={false}
+                value={sortBy}
+              />
+              <Select
+                options={this.getGenreList(selectedTag)}
+                className="col-6 tag-select"
+                onChange={this.handleGenreChange}
+                value={genre ? genre : this.getGenreList(selectedTag)[0]}
+                theme={this.getTheme}
+                isSearchable={false}
+              />
+            </div>
+
+            {isDiscoverListLoading && <Loader />}
+            {discoverList && discoverList.results && (
               <React.Fragment>
-                <AsyncSelect
-                  className="col-12 col-md-6 cast-select multi-select"
-                  isMulti
-                  defaultOptions
-                  placeholder="Select Cast.."
-                  onChange={this.handleCastChange}
-                  loadOptions={debounce(promiseOptions, 750)}
-                  theme={this.getTheme}
-                />
-                <AsyncSelect
-                  className="col-12 col-md-6 crew-select multi-select"
-                  isMulti
-                  placeholder="Select Crew.."
-                  onChange={this.handleCrewChange}
-                  loadOptions={debounce(promiseOptions, 750)}
-                  theme={this.getTheme}
-                />
+                <MoviePersonRow row target="_blank" movieList={discoverList.results} />
+                <div className="pagination-container">
+                  <Pagination
+                    activePage={discoverList.page}
+                    itemsCountPerPage={20}
+                    totalItemsCount={discoverList.total_results}
+                    pageRangeDisplayed={5}
+                    onChange={this.handlePageChange}
+                    prevPageText={``}
+                    nextPageText={``}
+                    firstPageText={``}
+                    lastPageText={``}
+                  />
+                </div>
               </React.Fragment>
             )}
-            <Select
-              options={SORT_ORDER}
-              className="col-6 sort-select"
-              onChange={this.handleSortByChange}
-              defaultValue={SORT_ORDER[0]}
-              theme={this.getTheme}
-              isSearchable={false}
-            />
-            <Select
-              options={this.getGenreList(selectedTag)}
-              className="col-6 tag-select"
-              onChange={this.handleGenreChange}
-              value={genre ? genre : this.getGenreList(selectedTag)[0]}
-              theme={this.getTheme}
-              isSearchable={false}
-            />
           </div>
-
-          {isDiscoverListLoading && <Loader />}
-          {discoverList && discoverList.results && (
-            <React.Fragment>
-              <MoviePersonRow row movieList={discoverList.results} />
-              <div className="pagination-container">
-                <Pagination
-                  activePage={discoverList.page}
-                  itemsCountPerPage={20}
-                  totalItemsCount={discoverList.total_results}
-                  pageRangeDisplayed={5}
-                  onChange={this.handlePageChange}
-                  prevPageText={``}
-                  nextPageText={``}
-                  firstPageText={``}
-                  lastPageText={``}
-                />
-              </div>
-            </React.Fragment>
-          )}
         </div>
         <Footer />
       </div>

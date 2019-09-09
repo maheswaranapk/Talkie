@@ -104,7 +104,7 @@ class DetailPage extends React.Component {
                   <div className="w-100 t-mb-4 d-none d-lg-block">
                     {movieDetail.genres.map(genre => {
                       return (
-                        <Link to={"/movie-filter?genre_id="+genre.id+"&genre_label="+genre.name+"&type="+path}>
+                        <Link to={"/filter?genre="+ JSON.stringify({value: genre.id, label: genre.name})+"&type="+path}>
                         <div className="tag col cursor-pointer">
                           {genre.name}
                         </div>

@@ -45,11 +45,23 @@ const nowPlaying = () => {
     });
 };
 
+const multiSearch = (inputValue) => {
+  return axiosInstance
+    .get(api.multiSearch + "&query="+inputValue)
+    .then(response => {
+      return response;
+    })
+    .catch(error => {
+      return Promise.reject(error);
+    });
+};
+
 const movieService = {
   trendingMovie,
   trendingTv,
   trendingPerson,
   nowPlaying,
+  multiSearch,
 };
 
 export default movieService;

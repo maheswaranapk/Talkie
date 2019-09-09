@@ -22,6 +22,27 @@ export function* getList(action) {
   }
 }
 
+export function* getSearchList(action) {
+  console.log(action);
+  
+  try {
+    let data = yield retry(
+      appSettings.apiMaxRetry,
+      appSettings.apiRetryDelay,
+      axiosService,
+      action.payload
+    );
+    yield put({
+      type: actionTypes.LIST_REQUEST_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    console.log(error);
+    
+    yield put({ type: actionTypes.LIST_REQUEST_ERROR, error });
+  }
+}
+
 export function* getDiscoverList(action) {
   try {
     let data = yield retry(

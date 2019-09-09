@@ -2,66 +2,44 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { withRouter } from "react-router-dom";
+import Pagination from "react-js-pagination";
 import queryString from "query-string";
 
+import Tag from "../../constants/tag.constants";
 import listAction from "../../store/actions/list.action";
 import MoviePersonRow from "../../components/MoviePersonRow/MoviePersonRow";
 import { Footer } from "../../components/Footer/Footer";
 import Loader from "../../components/Loader/Loader";
-import Pagination from "react-js-pagination";
 
-import "./ListPage.scss";
+import "./SearchPage.scss";
 
-const POPULAR = "popular?";
-const TOP_RATED = "top_rated?";
-const TV_NOW_PLAYING = "on_the_air?";
-const MOVIE_NOW_PLAYING = "now_playing?";
-
-const TV = "/tv/";
-const MOVIE = "/movie/";
-
-const TV_FILTER = [
+const FILTER = [
   {
-    title: "Popular",
-    tag: POPULAR
+    title: "MOVIE",
+    tag: Tag.MOVIE
   },
   {
-    title: "Top rated",
-    tag: TOP_RATED
+    title: "TV",
+    tag: Tag.TV
   },
   {
-    title: "Now Playing",
-    tag: TV_NOW_PLAYING
+    title: "PEOPLE",
+    tag: Tag.PEOPLE
   }
 ];
 
-const MOVIE_FILTER = [
-  {
-    title: "Popular",
-    tag: POPULAR
-  },
-  {
-    title: "Top rated",
-    tag: TOP_RATED
-  },
-  {
-    title: "Now Playing",
-    tag: MOVIE_NOW_PLAYING
-  }
-];
-
-class ListPage extends React.Component {
+class SearchPage extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
-    console.log("constructor");
 
-    let parsedParams = queryString.parse(this.props.location.search);
+    if (!(props.match && props.match.params && props.match.params.id)) {
+      this.props.history.push("/");
+    }
+
+    const parsedParams = queryString.parse(this.props.location.search);
     this.state = {
-      path: props.isMovie ? MOVIE : TV,
-      selectedTag: parsedParams.selectedTag
-        ? parsedParams.selectedTag
-        : POPULAR,
+      inputValue: props.match.params.id,
+      selectedTag: parsedParams.type ? parsedParams.type : Tag.MOVIE,
       page: parsedParams.page ? parsedParams.page : 1
     };
   }
@@ -71,43 +49,81 @@ class ListPage extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const locationChanged =
-      this.props.location.search !== prevProps.location.search;
-    console.log(this.props.location);
+    console.log("componentDidUpdate");
 
-    if (locationChanged) {
+    const { inputValue } = this.state;
+    if (inputValue !== this.props.match.params.id) {
+      window.scrollTo(0, 0);
+      const parsedParams = queryString.parse(this.props.location.search);
+      this.setState(
+        {
+          inputValue: this.props.match.params.id,
+          selectedTag: parsedParams.type ? parsedParams.type : Tag.MOVIE,
+          page: parsedParams.page ? parsedParams.page : 1
+        },
+        () => {
+          this.callApi();
+          this.updateResult();
+        }
+      );
+    } else if (this.props.location.search !== prevProps.location.search) {
       this.updateResult();
     }
   }
 
   updateResult = () => {
+    const { inputValue } = this.state;
     console.log(this.props.location);
     window.scrollTo(0, 0);
     const { path, selectedTag, page } = this.state;
-    this.props.actions.getList(path + selectedTag + "page=" + page + "&");
+
+    this.props.actions.getSearchList(
+      selectedTag + "query=" + inputValue + "&page=" + page + "&"
+    );
   };
 
+  // componentDidUpdate(prevProps) {
+  //   const locationChanged =
+  //     this.props.location.search !== prevProps.location.search;
+  //   console.log(this.props.location);
+
+  //   if (locationChanged) {
+  //     console.log(this.props.location);
+  //     window.scrollTo(0, 0);
+  //     const { path, selectedTag, page } = this.state;
+
+  //     this.props.actions.getSearchList(
+  //       selectedTag + "query=" + inputValue + "&page=" + page + "&"
+  //     );
+  //   }
+  // }
+
   handlePageChange = page => {
-    this.setState({ page }, () => {
-      this.callApi(page);
-    });
+    this.setState(
+      {
+        page
+      },
+      () => {
+        this.callApi();
+      }
+    );
   };
 
   callApi = () => {
-    const { path, selectedTag, page } = this.state;
+    window.scrollTo(0, 0);
+    const { inputValue, selectedTag, page } = this.state;
 
     if (
       this.props.location.search !==
-      "?selectedTag=" + selectedTag + "&page=" + page
+      "?type=" + selectedTag + "&page=" + page
     ) {
       this.props.history.replace({
-        search: "?selectedTag=" + selectedTag + "&page=" + page
+        pathname: "/search/" + inputValue,
+        search: "?type=" + selectedTag + "&page=" + page
       });
     } else {
       this.updateResult();
     }
-
-    // this.props.actions.getList(path + selectedTag + "page=" + page + "&");
   };
 
   ChangeFilter = tag => {
@@ -133,7 +149,7 @@ class ListPage extends React.Component {
           <div className="container">
             <div className="movies-filter d-flex justify-content-center justify-content-lg-end t-pt-4">
               <ul>
-                {(path === MOVIE ? MOVIE_FILTER : TV_FILTER).map(item => (
+                {FILTER.map(item => (
                   <li
                     key={item.slug}
                     className={item.tag === selectedTag ? "active" : ""}
@@ -144,7 +160,11 @@ class ListPage extends React.Component {
                 ))}
               </ul>
             </div>
-            <MoviePersonRow row movieList={list.results} />
+            <MoviePersonRow
+              row
+              movieList={selectedTag !== Tag.PEOPLE ? list.results : undefined}
+              personList={selectedTag === Tag.PEOPLE ? list.results : undefined}
+            />
             <div className="pagination-container">
               <Pagination
                 activePage={list.page}
@@ -175,7 +195,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
     {
-      getList: listAction.getList
+      getSearchList: listAction.getSearchList
     },
     dispatch
   )
@@ -184,4 +204,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(ListPage));
+)(withRouter(SearchPage));

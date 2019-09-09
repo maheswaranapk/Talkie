@@ -30,6 +30,13 @@ export default function(state = initialState, action) {
         isListError: action.error.data,
         isListLoading: false
       };
+      case types.SEARCH_REQUEST:
+        return {
+          ...state,
+          isListLoading: true,
+          list: null,
+          isListError: null
+        };
     case types.DISCOVER_REQUEST:
       return {
         ...state,

@@ -121,6 +121,14 @@ body {
     margin-bottom: 7px !important;
   }
 
+  .h-w-100 {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
   h1,
   h2,
   h3,
@@ -133,6 +141,16 @@ body {
 
   h1 {
     font-size: 30px;
+  }
+
+  .error-container {
+    h1 {
+      font-size: 100px;
+      
+      @include media-breakpoint-up(md) {
+        font-size: 150px;
+      }
+    }
   }
 
   .col-poster {

@@ -4,10 +4,12 @@ import { bindActionCreators } from "redux";
 import { withRouter } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import queryString from "query-string";
+import DefaultHelmet from "../../components/DefaultHelmet/DefaultHelmet";
 
 import Tag from "../../constants/tag.constants";
 import listAction from "../../store/actions/list.action";
 import MoviePersonRow from "../../components/MoviePersonRow/MoviePersonRow";
+import ErrorView from "../../components/ErrorView/ErrorView";
 import { Footer } from "../../components/Footer/Footer";
 import Loader from "../../components/Loader/Loader";
 
@@ -139,15 +141,18 @@ class SearchPage extends React.Component {
   };
 
   render() {
-    const { selectedTag, path } = this.state;
-    const { list, isListLoading } = this.props;
+    const { selectedTag, path, inputValue } = this.state;
+    const { list, isListLoading, isListError } = this.props;
 
     return (
       <div className="container-fluid">
+        <DefaultHelmet />
+        {isListError && <ErrorView onClick={this.callApi} />}
         {isListLoading && <Loader />}
         {list && list.results && (
           <div className="container">
-            <div className="movies-filter d-flex justify-content-center justify-content-lg-end t-pt-4">
+            <div className="movies-filter d-flex align-items-center justify-content-center justify-content-md-between t-pt-4">
+              <h5 className="d-none d-md-block text-primary t-pl-2">{"Search Results for \"" + inputValue + "\""}</h5>
               <ul>
                 {FILTER.map(item => (
                   <li
@@ -160,6 +165,7 @@ class SearchPage extends React.Component {
                 ))}
               </ul>
             </div>
+              <h5 className="d-block d-md-none text-primary t-pl-2 pt-3">{"Search Results for \"" + inputValue + "\""}</h5>
             <MoviePersonRow
               row
               movieList={selectedTag !== Tag.PEOPLE ? list.results : undefined}

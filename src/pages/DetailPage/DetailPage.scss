@@ -42,7 +42,7 @@
     // box-shadow: $primary 0 0 10px 3px;
     width: 40%;
 
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(xl) {
       width: 100%;
     }
   }

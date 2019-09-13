@@ -2,7 +2,7 @@ import React from "react";
 import "./ExternalID.scss";
 
 const ExternalID = ({ external }) => (
-  <div className="d-none d-lg-flex flex-row w-100 mb-5">
+  <div className="d-none d-xl-flex flex-row w-100 mb-5">
     {external.imdb_id && (
       <i
         onClick={() =>

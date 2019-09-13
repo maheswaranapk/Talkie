@@ -8,7 +8,9 @@ import listAction from "../../store/actions/list.action";
 import MoviePersonRow from "../../components/MoviePersonRow/MoviePersonRow";
 import { Footer } from "../../components/Footer/Footer";
 import Loader from "../../components/Loader/Loader";
+import ErrorView from "../../components/ErrorView/ErrorView";
 import Pagination from "react-js-pagination";
+import DefaultHelmet from "../../components/DefaultHelmet/DefaultHelmet";
 
 import "./ListPage.scss";
 
@@ -124,12 +126,15 @@ class ListPage extends React.Component {
 
   render() {
     const { selectedTag, path } = this.state;
-    const { list, isListLoading } = this.props;
+    const { list, isListLoading, isListError } = this.props;
 
     return (
       <div className="container-fluid">
+        <DefaultHelmet />
+        {isListError && <ErrorView onClick={this.callApi} />}
         {isListLoading && <Loader />}
         {list && list.results && (
+          <React.Fragment>
           <div className="container">
             <div className="movies-filter d-flex justify-content-center justify-content-lg-end t-pt-4">
               <ul>
@@ -159,8 +164,9 @@ class ListPage extends React.Component {
               />
             </div>
           </div>
+          <Footer />
+          </React.Fragment>
         )}
-        <Footer />
       </div>
     );
   }

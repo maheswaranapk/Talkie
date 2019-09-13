@@ -33,6 +33,11 @@ const customStyles = {
 };
 
 const loadOptions = (inputValue, callback) => {
+  if (!inputValue || inputValue.length === 0) {
+    callback([]);
+    return;
+  }
+
   homeService
     .multiSearch(inputValue)
     .then(response => {
@@ -45,6 +50,7 @@ const loadOptions = (inputValue, callback) => {
       console.log(response.data.results);
       let options = response.data.results.map(result => ({
         // value: result.id,
+        result: result,
         value: { media_type: result.media_type, id: result.id },
         label1: result.media_type === "movie" ? result.title : result.name,
         label: (
@@ -68,19 +74,19 @@ const loadOptions = (inputValue, callback) => {
         value: null,
         inputValue: inputValue,
         label: 'Show Movie Results for "' + inputValue + '"',
-        param: "?type="+Tag.MOVIE+"&page=1"
+        param: "?type=" + Tag.MOVIE + "&page=1"
       });
       options.push({
         value: null,
         inputValue: inputValue,
         label: 'Show TV Show Results for "' + inputValue + '"',
-        param: "?type="+Tag.TV+"&page=1"
+        param: "?type=" + Tag.TV + "&page=1"
       });
       options.push({
         value: null,
         inputValue: inputValue,
         label: 'Show People Results for "' + inputValue + '"',
-        param: "?type="+Tag.PEOPLE+"&page=1"
+        param: "?type=" + Tag.PEOPLE + "&page=1"
       });
 
       callback(options);
@@ -96,27 +102,54 @@ class MenuBar extends React.Component {
   };
 
   state = {
-    selectedOption: null
+    selectedOption: null,
+    menuOpen: false
+  };
+
+  toggleMenu = () => {
+    this.setState(state => ({ menuOpen: !state.menuOpen }));
+  };
+  handleStateChange = state => {
+    this.setState({ menuOpen: state.isOpen });
   };
 
   handleChange = selectedOption => {
     console.log(selectedOption);
     if (selectedOption.value) {
-      if ((selectedOption.value.media_type = "movie"))
+      if (selectedOption.value.media_type === "movie")
         this.props.history.push("/movie-detail/" + selectedOption.value.id);
-      else if ((selectedOption.value.media_type = "tv"))
+      else if (selectedOption.value.media_type === "tv")
         this.props.history.push("/tv-detail/" + selectedOption.value.id);
-      else if ((selectedOption.value.media_type = "person"))
+      else if (selectedOption.value.media_type === "person")
         this.props.history.push("/people-detail/" + selectedOption.value.id);
     } else {
-      this.props.history.push("/search/" + selectedOption.inputValue + selectedOption.param);
+      this.props.history.push(
+        "/search/" + selectedOption.inputValue + selectedOption.param
+      );
     }
     this.setState({ selectedOption: null });
     this.forceUpdate();
   };
 
-  render() {
+  getAsyncSelect = placeholder => {
     const { selectedOption } = this.state;
+    return (
+      <AsyncSelect
+        className="text-primary"
+        placeholder={placeholder}
+        onChange={this.handleChange}
+        openMenuOnClick={true}
+        value={selectedOption}
+        classNamePrefix="select"
+        styles={customStyles}
+        loadOptions={debounce(loadOptions, 100)}
+        cacheOptions
+        defaultOptions
+      />
+    );
+  };
+
+  render() {
     return (
       <React.Fragment>
         <div className="fixed-top d-none d-lg-block desktop-menu">
@@ -124,18 +157,12 @@ class MenuBar extends React.Component {
             <Link to={"/"} className="logo nav-title" href="#">
               TALKIE
             </Link>
-            <AsyncSelect
-              className="col-3 col-lg-4 col-xl-5 text-primary"
-              placeholder="Search Movies, TV Shows, People here..."
-              onChange={this.handleChange}
-              openMenuOnClick={true}
-              value={selectedOption}
-              classNamePrefix="select"
-              styles={customStyles}
-              loadOptions={debounce(loadOptions, 750)}
-              cacheOptions
-              defaultOptions
-            />
+            <div className="d-none d-xl-block col-3 col-lg-4 col-xl-5">
+              {this.getAsyncSelect("Search Movies, TV Shows, People here...")}
+            </div>
+            <div className="d-none d-lg-block d-xl-none col-3 col-lg-4 col-xl-5">
+              {this.getAsyncSelect("Search here...")}
+            </div>
             <div className="navbar-nav d-flex flex-row">
               <NavLink
                 to={"/"}
@@ -174,11 +201,14 @@ class MenuBar extends React.Component {
         </div>
         <div className="fixed-top d-block d-lg-none mobile-menu">
           <nav className="navbar d-flex flex-row justify-content-between align-items-center flex-nowrap p-2">
-            <Menu>
+            <Menu
+              isOpen={this.state.menuOpen}
+              onStateChange={state => this.handleStateChange(state)}
+            >
               <NavLink
                 to={"/"}
                 exact
-                activeClassName="active"
+                onClick={this.toggleMenu}
                 className="menu-item"
               >
                 HOME
@@ -186,7 +216,7 @@ class MenuBar extends React.Component {
               <NavLink
                 to={"/movie-list"}
                 exact
-                activeClassName="active"
+                onClick={this.toggleMenu}
                 className="menu-item"
               >
                 MOVIES
@@ -194,7 +224,7 @@ class MenuBar extends React.Component {
               <NavLink
                 to={"/tv-list"}
                 exact
-                activeClassName="active"
+                onClick={this.toggleMenu}
                 className="menu-item"
               >
                 TV SHOWS
@@ -202,7 +232,7 @@ class MenuBar extends React.Component {
               <NavLink
                 to={"/filter"}
                 exact
-                activeClassName="active"
+                onClick={this.toggleMenu}
                 className="menu-item"
                 href="#"
               >
@@ -210,12 +240,9 @@ class MenuBar extends React.Component {
               </NavLink>
             </Menu>
 
-            <input
-              className="form-control col-8 col-md-6 text-primary"
-              type="search"
-              placeholder="Search here..."
-              aria-label="Search"
-            />
+            <div className="col-8 col-md-6">
+              {this.getAsyncSelect("Search here...")}
+            </div>
           </nav>
         </div>
       </React.Fragment>

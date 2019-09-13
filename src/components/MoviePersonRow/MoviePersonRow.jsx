@@ -127,7 +127,7 @@ class MoviePersonRow extends React.Component {
                             : "col-poster") + " t-pt-4 t-pb-4"
                         }
                       >
-                        <MovieTvCard movie={movie} character target={target}/>
+                        <MovieTvCard movie={movie} character target={target} />
                       </div>
                     ))}
 
@@ -136,9 +136,9 @@ class MoviePersonRow extends React.Component {
                     personList.map(person => (
                       <div
                         className={
-                          (row
+                          row
                             ? "col-6 col-lg-3 col-md-4 t-pt-4 t-pb-4"
-                            : "col-poster t-pt-4 t-pb-4")
+                            : "col-poster t-pt-4 t-pb-4"
                         }
                       >
                         <PersonCard person={person} />
@@ -179,7 +179,10 @@ class MoviePersonRow extends React.Component {
 
 const MovieTvCard = ({ movie, character, target }) => {
   return (
-    <Link to={(movie.title ? "/movie-detail/" : "/tv-detail/") + movie.id} target={target}>
+    <Link
+      to={(movie.title ? "/movie-detail/" : "/tv-detail/") + movie.id}
+      target={target}
+    >
       <div className="movie-row-parent h-100 border-radius cursor-pointer">
         <img
           src={
@@ -194,13 +197,16 @@ const MovieTvCard = ({ movie, character, target }) => {
           {movie.title && <h5 className="pb-1">{movie.title}</h5>}
           {movie.name && <h5 className="pb-1">{movie.name}</h5>}
           {character && movie.character ? (
-            <div>{movie.character}</div>
+            <div className="character-name">{movie.character}</div>
           ) : (
             <React.Fragment>
-              {movie.release_date && (
+              {movie.department && (
+                <div className="">{movie.department}</div>
+              )}
+              {movie.release_date && !movie.department && (
                 <div>{movie.release_date.substring(0, 4)}</div>
               )}
-              {movie.first_air_date && (
+              {movie.first_air_date && !movie.department && (
                 <div>{movie.first_air_date.substring(0, 4)}</div>
               )}
             </React.Fragment>
@@ -225,12 +231,12 @@ const PersonCard = ({ person }) => {
           className="person-row-image h-100 w-100 cover-img border-radius"
         />
         <div className="person-row-info w-100 t-p-4 pt-4 text-light">
-          {person.name && <h5 className="pb-1 text-center">{person.name}</h5>}
+          {person.name && <h5 className="pb-1 text-center character-cast-name">{person.name}</h5>}
           {person.known_for_department && (
             <div className="text-center">{person.known_for_department}</div>
           )}
           {person.character && (
-            <div className="text-center">{person.character}</div>
+            <div className="text-center character-name">{person.character}</div>
           )}
         </div>
       </div>
@@ -240,12 +246,14 @@ const PersonCard = ({ person }) => {
 
 const CrewCard = ({ crew }) => {
   return (
-    <div className="person-row-parent h-100 d-flex flex-column border-radius">
-      <div className="person-row-info w-100 text-light">
-        {crew.name && <h5 className="pb-1 text-center">{crew.name}</h5>}
-        {crew.job && <div className="text-center job-title">{crew.job}</div>}
+    <Link to={"/people-detail/" + crew.id}>
+      <div className="person-row-parent h-100 d-flex flex-column border-radius cursor-pointer">
+        <div className="person-row-info w-100 text-light">
+          {crew.name && <h5 className="pb-1 text-center">{crew.name}</h5>}
+          {crew.job && <div className="text-center job-title">{crew.job}</div>}
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

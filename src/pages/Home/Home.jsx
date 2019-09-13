@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import DefaultHelmet from "../../components/DefaultHelmet/DefaultHelmet";
 import homeActions from "../../store/actions/home.action";
 import CoverImage from "../../components/CoverImage/CoverImage";
 import MoviePersonRow from "../../components/MoviePersonRow/MoviePersonRow";
@@ -40,7 +41,8 @@ class Home extends React.Component {
 
   componentDidMount() {
     this.updateWindowDimensions();
-    this.props.actions.getTrendingTvMovie({});
+    const {isTrendingLoadingDone} = this.props;
+    if(!isTrendingLoadingDone) this.props.actions.getTrendingTvMovie({});
     window.addEventListener("resize", this.updateWindowDimensions);
   }
 
@@ -82,6 +84,7 @@ class Home extends React.Component {
 
     return (
       <div className="container-fluid bg-light">
+        <DefaultHelmet />
         {isTrendingLoading && <Loader />}
         {trendingMovies && (
           <Slider {...SLICK_SETTING}>
@@ -115,7 +118,8 @@ const mapStateToProps = state => ({
   trendingMovies: state.homeReducer.trendingMovies,
   trendingTvShows: state.homeReducer.trendingTvShows,
   trendingPerson: state.homeReducer.trendingPerson,
-  isTrendingError: state.homeReducer.isTrendingError
+  isTrendingError: state.homeReducer.isTrendingError,
+  isTrendingLoadingDone: state.homeReducer.isTrendingLoadingDone,
 });
 
 const mapDispatchToProps = dispatch => ({

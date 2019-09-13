@@ -4,30 +4,31 @@
   min-height: 80vh;
 
   .auto-complete-image {
-    border-radius: 5px;
+    border-radius: 50%;
     width: 40px;
-    height: auto;
+    height: 40px;
     background-position: center;
     background-size: cover;
+    margin-right: 5px;
   }
 
   .Select-control {
-    height: 65px;
+    height: 40px;
 
     .Select-placeholder {
-      line-height: 60px;
+      line-height: 40px;
     }
 
     .Select-value {
-      line-height: 60px !important;
+      line-height: 40px !important;
 
       .Select-value-label {
-        line-height: 60px;
+        line-height: 40px;
       }
     }
 
     .Select-input {
-      height: 60px;
+      height: 40px;
     }
   }
 
@@ -71,12 +72,12 @@
     div {
       // height: 65px;
       &:first-child {
-        line-height: 65px;
-        height: auto;
+        line-height: 45px;
+        // height: auto;
       }
       &:nth-child(2) {
-        line-height: 65px;
-        height: auto;
+        line-height: 45px;
+        // height: auto;
       }
     }
   }

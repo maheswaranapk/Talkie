@@ -6,7 +6,8 @@ const initialState = {
   trendingMovies: null,
   trendingTvShows: null,
   trendingPerson: null,
-  isTrendingError: false
+  isTrendingError: false,
+  isTrendingLoadingDone: false,
 };
 
 export default function(state = initialState, action) {
@@ -28,7 +29,8 @@ export default function(state = initialState, action) {
         trendingMovies: action.payload[1].data.results,
         trendingTvShows: action.payload[2].data.results,
         trendingPerson: action.payload[3].data.results,
-        isTrendingLoading: false
+        isTrendingLoading: false,
+        isTrendingLoadingDone: true,
       };
     case types.TRENDING_REQUEST_ERROR:
       return {

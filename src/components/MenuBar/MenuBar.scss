@@ -94,13 +94,8 @@
       height: 50px;
       line-height: 50px;
       padding-left: 20px;
-      &:hover {
-        background-color: $primary;
-        color: white;
-      }
       &:focus {
-        background-color: $primary;
-        color: white;
+        
         outline: none;
       }
     }

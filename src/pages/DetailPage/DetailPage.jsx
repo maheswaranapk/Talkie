@@ -2,12 +2,15 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { withRouter } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import DefaultHelmet from "../../components/DefaultHelmet/DefaultHelmet";
 import api from "../../constants/api.constant.js";
 import movieDetailActions from "../../store/actions/movie-detail.action";
 import MoviePersonRow from "../../components/MoviePersonRow/MoviePersonRow";
 import ExternalID from "../../components/ExternaIId/ExternalId";
 import { Footer } from "../../components/Footer/Footer";
 import Loader from "../../components/Loader/Loader";
+import ErrorView from "../../components/ErrorView/ErrorView";
 import { Link } from "react-router-dom";
 import "./DetailPage.scss";
 
@@ -43,11 +46,16 @@ class DetailPage extends React.Component {
         },
         () => {
           const { path, id } = this.state;
-          this.props.actions.getMovieDetail(path+ "/" + id);
+          this.props.actions.getMovieDetail(path + "/" + id);
         }
       );
     }
   }
+
+  fetchData = () => {
+    const { path, id } = this.state;
+    this.props.actions.getMovieDetail(path + "/" + id);
+  };
 
   render() {
     const {
@@ -56,10 +64,11 @@ class DetailPage extends React.Component {
       movieSimilar,
       movieVideo,
       movieExternal,
-      isMovieDetailLoading
+      isMovieDetailLoading,
+      isMovieDetailError
     } = this.props;
 
-    const {path} = this.state;
+    const { path } = this.state;
 
     if (!movieDetail && this.isCreatorAdded) this.isCreatorAdded = false;
 
@@ -80,6 +89,8 @@ class DetailPage extends React.Component {
 
     return (
       <React.Fragment>
+        <DefaultHelmet />
+        {isMovieDetailError && <ErrorView onClick={this.fetchData} />}
         {isMovieDetailLoading && <Loader />}
         {movieDetail && (
           <div
@@ -90,8 +101,27 @@ class DetailPage extends React.Component {
             }}
           >
             <div className="movie-detail container d-flex  flex-column">
-              <div className="d-flex  flex-column flex-lg-row  w-100 min-height">
-                <div className="col-12 col-lg-4 movie-detail-poster-container t-pt-4 d-flex flex-column align-items-center">
+              <div className="d-flex  flex-column flex-xl-row  w-100 min-height">
+                <div className="col-12 col-xl-4 movie-detail-poster-container t-pt-4 d-flex flex-column align-items-center">
+                <Helmet>
+                  <title>
+                    {(movieDetail.name ? movieDetail.name : "")  + (movieDetail.title ? movieDetail.title : "") + " - Talkie "}
+                  </title>
+                  <meta
+                    name="og:title"
+                    content={(movieDetail.name ? movieDetail.name : "")  + (movieDetail.title ? movieDetail.title : "") + " - Talkie "}
+                  />
+                  <meta
+                    name="title"
+                    content={(movieDetail.name ? movieDetail.name : "")  + (movieDetail.title ? movieDetail.title : "") + " - Talkie "}
+                  />
+                  <meta
+                    name="og:description"
+                    content={
+                      movieDetail.biography ? movieDetail.biography : ""
+                    }
+                  />
+                  </Helmet>
                   <img
                     src={
                       movieDetail.poster_path
@@ -101,20 +131,30 @@ class DetailPage extends React.Component {
                     alt={`${movieDetail.title} poster`}
                     className="movie-poster-image border-radius t-mb-4"
                   />
-                  <div className="w-100 t-mb-4 d-none d-lg-block">
+                  <div className="w-100 t-mb-4 d-none d-xl-block">
                     {movieDetail.genres.map(genre => {
                       return (
-                        <Link to={"/filter?genre="+ JSON.stringify({value: genre.id, label: genre.name})+"&type="+path}>
-                        <div className="tag col cursor-pointer">
-                          {genre.name}
-                        </div>
+                        <Link
+                          to={
+                            "/filter?genre=" +
+                            JSON.stringify({
+                              value: genre.id,
+                              label: genre.name
+                            }) +
+                            "&type=" +
+                            path
+                          }
+                        >
+                          <div className="tag col cursor-pointer">
+                            {genre.name}
+                          </div>
                         </Link>
                       );
                     })}
                   </div>
                   {movieExternal && <ExternalID external={movieExternal} />}
                 </div>
-                <div className="col-12 col-lg-8 text-light t-pt-4 pb-5">
+                <div className="col-12 col-xl-8 text-light t-pt-4 pb-5">
                   <div>
                     {movieDetail.title && (
                       <h1 className="t-pb-4 ">{movieDetail.title}</h1>

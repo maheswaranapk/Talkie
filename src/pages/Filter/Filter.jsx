@@ -7,12 +7,14 @@ import Select from "react-select";
 import MoviePersonRow from "../../components/MoviePersonRow/MoviePersonRow";
 import AsyncSelect from "react-select/async";
 import queryString from "query-string";
+import DefaultHelmet from "../../components/DefaultHelmet/DefaultHelmet";
 
 import axiosInstance from "../../services/axios";
 import debounce from "es6-promise-debounce";
 import { Footer } from "../../components/Footer/Footer";
 import Pagination from "react-js-pagination";
 import Loader from "../../components/Loader/Loader";
+import ErrorView from "../../components/ErrorView/ErrorView";
 import api from "../../constants/api.constant.js";
 import {
   SORT_ORDER,
@@ -36,13 +38,13 @@ const promiseOptions = inputValue => {
       let options = response.data.results.map(cast => ({
         value: "" + cast.id,
         label: (
-          <div>
-            <img
-              src={
-                cast.profile_path
-                  ? api.imageUrl + cast.profile_path
-                  : "/images/default-profile.png"
-              }
+          <div className="d-flex flex-row">
+
+            <div
+            style={{backgroundImage: "url(" + (cast.profile_path
+            ? api.imageUrl + cast.profile_path
+            : "/images/default-profile.png") + ")"}}
+              
               className="t-pr-2 auto-complete-image"
               alt={cast.name}
             />
@@ -185,11 +187,12 @@ class Filter extends React.Component {
     selectedTag === MOVIE ? GENRE_TYPE_MOVIE : GENRE_TYPE_TV;
 
   render() {
-    const { discoverList, isDiscoverListLoading } = this.props;
+    const { discoverList, isDiscoverListLoading, isDiscoverListError } = this.props;
     const { genre, selectedTag, sortBy, cast, crew } = this.state;
 
     return (
       <div className="container-fluid">
+        <DefaultHelmet />
         <div className="container filter-container">
           <div className="container t-mt-4">
             <div className="movies-filter d-flex justify-content-center justify-content-lg-end t-pb-4">
@@ -248,7 +251,7 @@ class Filter extends React.Component {
                 isSearchable={false}
               />
             </div>
-
+            {isDiscoverListError && <ErrorView onClick={this.callApi} />} 
             {isDiscoverListLoading && <Loader />}
             {discoverList && discoverList.results && (
               <React.Fragment>

@@ -22,7 +22,6 @@ const getDate = detail => {
 };
 
 export default function(state = initialState, action) {
-  console.log(action);
   
   switch (action.type) {
     case types.MOVIE_DETAIL_REQUEST:
@@ -56,7 +55,6 @@ export default function(state = initialState, action) {
       };
 
     case types.PEOPLE_DETAIL_REQUEST:
-        console.log("PEOPLE_DETAIL_REQUEST");
       return {
         ...state,
         isPeopleDetailLoading: true,
@@ -66,7 +64,6 @@ export default function(state = initialState, action) {
         isPeopleDetailError: false
       };
     case types.PEOPLE_DETAIL_REQUEST_SUCCESS:
-        console.log("PEOPLE_DETAIL_REQUEST_SUCCESS");
       let cast = action.payload[1].data.cast;
       let crew = action.payload[1].data.crew;
       
@@ -81,10 +78,6 @@ export default function(state = initialState, action) {
       knownFor = knownFor.sort(function(a, b) {
         return b.vote_count - a.vote_count;
       });
-
-      console.log(knownFor);
-      
-
 
       cast = cast.sort(function(a, b) {
         return getDate(b).localeCompare(getDate(a));
@@ -103,7 +96,6 @@ export default function(state = initialState, action) {
           );
         });
       }
-      console.log(knownFor);
 
       // knownFor = knownFor.sort(function(a, b) {
       //   return getDate(b) - getDate(a);
@@ -136,10 +128,7 @@ export default function(state = initialState, action) {
         (knownFor && knownFor.length > 20) ? knownFor.slice(0, 20) : knownFor;
       action.payload[1].data.acting = cast;
       action.payload[1].data.crew = mergedArray;
-
-      console.log(knownFor);
       
-
       return {
         ...state,
         peopleDetail: action.payload[0].data,
@@ -148,8 +137,6 @@ export default function(state = initialState, action) {
         isPeopleDetailLoading: false
       };
     case types.PEOPLE_DETAIL_REQUEST_ERROR:
-      console.log(action);
-      
       return {
         ...state,
         isPeopleDetailError: true,

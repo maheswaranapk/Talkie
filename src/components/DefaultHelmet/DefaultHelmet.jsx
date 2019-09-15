@@ -5,9 +5,9 @@ const DefaultHelmet = ({ onClick }) => {
   return (
     <Helmet>
       <title>{"Talkie"}</title>
-      <meta content="" name="og:title" />
-      <meta name="title" content="" />
-      <meta name="og:description" content="" />
+      <meta name="title" content="Talkie" />
+      <meta name="og:description" content="Talkie is a site to explore movies and its details." />
+      <meta name="description" content="Talkie is a site to explore movies and its details." />
     </Helmet>
   );
 };

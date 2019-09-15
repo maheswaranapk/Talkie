@@ -82,7 +82,7 @@ const MovieDetail = ({ movie }) => {
       <h4 className="d-block d-md-none movie-title text-center pb-3">{movie.title}</h4>
       <h3 className="d-none d-md-block movie-title">{movie.title}</h3>
       <div className="d-none d-md-block">
-        <div className="movie-overview">{movie.overview}</div>
+        <div className="movie-overview text-justify">{movie.overview}</div>
       </div>
     </React.Fragment>
   );

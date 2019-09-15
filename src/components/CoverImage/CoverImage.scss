@@ -56,7 +56,7 @@
 
     @include media-breakpoint-up(md) {
       padding-right: 100px;
-      width: 50%;
+      width: 60%;
     }
   }
 
@@ -78,18 +78,23 @@
     color: #fff;
     opacity: 0.7;
     padding-top: 10px;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 5;
     overflow: hidden;
     -webkit-box-orient: vertical;
     display: -webkit-box;
     overflow-wrap: break-word;
-    font-size: 14px;
+    font-size: 10px;
+
+    @include media-breakpoint-up(md) {
+      font-size: 14px;
+      width: 60%;
+    }
 
     @include media-breakpoint-up(lg) {
       font-size: 16px;
     }
     @include media-breakpoint-up(xl) {
-      font-size: 20px;
+      font-size: 18px;
     }
   }
 }

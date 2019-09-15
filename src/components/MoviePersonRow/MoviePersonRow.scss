@@ -2,6 +2,12 @@
 @import "../../styles/mixins";
 
 .movie-person-row-container {
+
+a:hover {
+  color: white;
+  text-decoration: none;
+}
+
   .slick-next {
     width: 50px;
     height: 100%;
@@ -160,10 +166,6 @@
   }
 }
 
-a:hover {
-  color: white;
-  text-decoration: none;
-}
 
 iframe {
   width: calc(100% - 30px);

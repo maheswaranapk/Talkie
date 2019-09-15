@@ -89,7 +89,7 @@ class DetailPage extends React.Component {
 
     return (
       <React.Fragment>
-        <DefaultHelmet />
+        {/* <DefaultHelmet /> */}
         {isMovieDetailError && <ErrorView onClick={this.fetchData} />}
         {isMovieDetailLoading && <Loader />}
         {movieDetail && (
@@ -117,6 +117,12 @@ class DetailPage extends React.Component {
                   />
                   <meta
                     name="og:description"
+                    content={
+                      movieDetail.biography ? movieDetail.biography : ""
+                    }
+                  />
+                  <meta
+                    name="description"
                     content={
                       movieDetail.biography ? movieDetail.biography : ""
                     }

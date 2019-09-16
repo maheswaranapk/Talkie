@@ -7,7 +7,14 @@ const DefaultHelmet = ({ onClick }) => {
       <title>{"Talkie"}</title>
       <meta name="title" content="Talkie" />
       <title>Talkie</title>
-     
+      <meta
+        name="og:description"
+        content="Talkie is a site to explore movies. Powered by TMDB."
+      />
+      <meta
+        name="description"
+        content="Talkie is a site to explore movies. Powered by TMDB."
+    
       
     <meta
         name="keywords"

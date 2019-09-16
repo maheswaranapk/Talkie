@@ -27,7 +27,7 @@ export default function(state = initialState, action) {
     case types.LIST_REQUEST_ERROR:
       return {
         ...state,
-        isListError: action.error.data,
+        isListError: true,
         isListLoading: false
       };
       case types.SEARCH_REQUEST:
@@ -53,7 +53,7 @@ export default function(state = initialState, action) {
     case types.DISCOVER_REQUEST_ERROR:
       return {
         ...state,
-        isDiscoverListError: action.error.data,
+        isDiscoverListError: true,
         isDiscoverListLoading: false
       };
     default:

@@ -90,7 +90,8 @@ class DetailPage extends React.Component {
     return (
       <React.Fragment>
         {/* <DefaultHelmet /> */}
-        {isMovieDetailError && <ErrorView onClick={this.fetchData} />}
+        {isMovieDetailError && <div className="d-flex flex-column"><ErrorView onClick={this.fetchData} />
+              <Footer /></div>}
         {isMovieDetailLoading && <Loader />}
         {movieDetail && (
           <div

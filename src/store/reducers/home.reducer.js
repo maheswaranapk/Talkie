@@ -35,7 +35,7 @@ export default function(state = initialState, action) {
     case types.TRENDING_REQUEST_ERROR:
       return {
         ...state,
-        isTrendingError: action.error.data,
+        isTrendingError: true,
         isTrendingLoading: false
       };
     default:

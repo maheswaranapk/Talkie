@@ -67,7 +67,10 @@ class PeopleDetail extends React.Component {
         ) : (
           ""
         )}
-        <div className="d-flex flex-row">
+        <div className="d-flex flex-row cursor-pointer" onClick={() => {
+          if (movie.media_type === "movie") this.props.history.push("/movie-detail/"+movie.id);
+          else  this.props.history.push("/tv-detail/"+movie.id);
+        }}>
           <div className="year">
             {!previousItem ||
             (previousItem &&
@@ -115,7 +118,8 @@ class PeopleDetail extends React.Component {
     return (
       <React.Fragment>
         <DefaultHelmet />
-        {isPeopleDetailError && <ErrorView onClick={this.fetchData} />}
+        {isPeopleDetailError && <div className="d-flex flex-column"><ErrorView onClick={this.fetchData} />
+              <Footer /></div>}
         {isPeopleDetailLoading && <Loader />}
         {peopleDetail && peopleCredit && (
           <div

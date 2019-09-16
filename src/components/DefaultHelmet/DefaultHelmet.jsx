@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 const DefaultHelmet = ({ onClick }) => {
   return (
     <Helmet>
-      {/* <title>{"Talkie"}</title>
+      <title>{"Talkie"}</title>
       <meta name="title" content="Talkie" />
       <title>Talkie</title>
      
@@ -12,7 +12,7 @@ const DefaultHelmet = ({ onClick }) => {
     <meta
         name="keywords"
         content="Movies, TV Shows, Actors, Actresses, Photos, User Ratings, Synopsis, Trailers, Teasers, Credits, Cast"
-      ></meta> */}
+      ></meta>
       
       <meta name="image" content="https://talkie.appybot.in/favicon.ico" />
       <meta

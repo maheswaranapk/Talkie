@@ -183,7 +183,13 @@ const MovieTvCard = ({ movie, character, target }) => {
       to={(movie.title ? "/movie-detail/" : "/tv-detail/") + movie.id}
       target={target}
     >
-      <div className="movie-row-parent h-100 border-radius cursor-pointer">
+      <div className="position-relative movie-row-parent border-radius cursor-pointer"
+      >
+      <img
+          src={"/images/default-poster.png"}
+          alt={`${movie.title} poster`}
+          className="movie-row-image-place w-100 cover-img border-radius"
+        />
         <img
           src={
             movie.poster_path
@@ -220,7 +226,12 @@ const MovieTvCard = ({ movie, character, target }) => {
 const PersonCard = ({ person }) => {
   return (
     <Link to={"/people-detail/" + person.id}>
-      <div className="person-row-parent h-100 d-flex flex-column border-radius cursor-pointer">
+      <div className="position-relative person-row-parent h-100 d-flex flex-column border-radius cursor-pointer">
+      <img
+          src={"/images/default-profile.png"}
+          alt={`${person.name} poster`}
+          className="person-row-image-place w-100 cover-img border-radius"
+        />
         <img
           src={
             person.profile_path

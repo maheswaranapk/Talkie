@@ -48,21 +48,33 @@ a:hover {
       position: relative;
       transition: transform 0.2s;
       overflow: hidden;
-
-      min-height: 180px;
+      // min-height: 180px;
 
       @include media-breakpoint-up(md) {
-        min-height: 220px;
+        // min-height: 220px;
       }
 
       .movie-row-image {
         transition: transform 0.2s;
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        
+      }
+
+      .movie-row-image-place {
+        z-index: -100;
+        // position: absolute;
       }
 
       .movie-row-info {
         position: absolute;
         bottom: 0;
         height: auto;
+        z-index: 2;
         border-bottom-left-radius: 15px;
         border-bottom-right-radius: 15px;
         background-image: linear-gradient(
@@ -103,11 +115,22 @@ a:hover {
         object-fit: cover;
         object-position: center;
         background: #333333;
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+      } 
+      .person-row-image-place {
+        z-index: -100;
+        // position: absolute;
       }
 
       .person-row-info {
         // transition: transform 0.2s;
         transition: all 500ms ease;
+        z-index: 2;
         /*note: not transitioning width */
         // transition-property: height, background, box-shadow;
         position: absolute;

@@ -55,8 +55,6 @@ const MOVIE_FILTER = [
 class ListPage extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
-    console.log("constructor");
 
     let parsedParams = queryString.parse(this.props.location.search);
     this.state = {
@@ -83,7 +81,6 @@ class ListPage extends React.Component {
   }
 
   updateResult = () => {
-    console.log(this.props.location);
     window.scrollTo(0, 0);
     const { path, selectedTag, page } = this.state;
     this.props.actions.getList(path + selectedTag + "page=" + page + "&");
@@ -164,9 +161,9 @@ class ListPage extends React.Component {
               />
             </div>
           </div>
-          <Footer />
           </React.Fragment>
         )}
+        <Footer />
       </div>
     );
   }

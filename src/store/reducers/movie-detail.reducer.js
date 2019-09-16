@@ -50,7 +50,7 @@ export default function(state = initialState, action) {
     case types.MOVIE_DETAIL_REQUEST_ERROR:
       return {
         ...state,
-        isMovieDetailError: action.error.data,
+        isMovieDetailError: true,
         isMovieDetailLoading: false
       };
 
@@ -92,7 +92,8 @@ export default function(state = initialState, action) {
         knownFor = knownFor.filter(function(obj) {
           return !(
             (obj.episode_count && obj.episode_count < 5) || (!obj.character && !obj.department) ||
-            (!obj.department && (obj.character && obj.character.length === 0 ))
+            (!obj.department && (obj.character && obj.character.length === 0 ) ||
+            (!obj.department && (obj.character && obj.character.toLowerCase().includes("uncredited"))))
           );
         });
       }
@@ -123,6 +124,7 @@ export default function(state = initialState, action) {
           return getDate(b).localeCompare(getDate(a));
         });        
       });
+    console.log(knownFor);
     
       action.payload[1].data.knownFor =
         (knownFor && knownFor.length > 20) ? knownFor.slice(0, 20) : knownFor;

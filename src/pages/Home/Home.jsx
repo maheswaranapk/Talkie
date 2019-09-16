@@ -7,6 +7,7 @@ import CoverImage from "../../components/CoverImage/CoverImage";
 import MoviePersonRow from "../../components/MoviePersonRow/MoviePersonRow";
 import Loader from "../../components/Loader/Loader";
 import { Footer } from "../../components/Footer/Footer";
+import ErrorView from "../../components/ErrorView/ErrorView";
 import "./Home.scss";
 
 import Slider from "react-slick";
@@ -41,8 +42,8 @@ class Home extends React.Component {
 
   componentDidMount() {
     this.updateWindowDimensions();
-    const {isTrendingLoadingDone} = this.props;
-    if(!isTrendingLoadingDone) this.props.actions.getTrendingTvMovie({});
+    const { isTrendingLoadingDone } = this.props;
+    if (!isTrendingLoadingDone) this.props.actions.getTrendingTvMovie({});
     window.addEventListener("resize", this.updateWindowDimensions);
   }
 
@@ -77,14 +78,16 @@ class Home extends React.Component {
       trendingMovies,
       nowPlayingList,
       trendingTvShows,
-      trendingPerson
+      trendingPerson,
+      isTrendingError
     } = this.props;
 
     SLICK_SETTING.centerPadding = this.calculatecenterpadding();
 
     return (
-      <div className="container-fluid bg-light">
+      <div className="container-fluid d-flex flex-column  bg-light">
         <DefaultHelmet />
+        {isTrendingError && <ErrorView onClick={this.callApi} />}
         {isTrendingLoading && <Loader />}
         {trendingMovies && (
           <Slider {...SLICK_SETTING}>
@@ -105,7 +108,6 @@ class Home extends React.Component {
         {trendingPerson && (
           <MoviePersonRow title="Trending People" personList={trendingPerson} />
         )}
-
         <Footer />
       </div>
     );
@@ -119,7 +121,7 @@ const mapStateToProps = state => ({
   trendingTvShows: state.homeReducer.trendingTvShows,
   trendingPerson: state.homeReducer.trendingPerson,
   isTrendingError: state.homeReducer.isTrendingError,
-  isTrendingLoadingDone: state.homeReducer.isTrendingLoadingDone,
+  isTrendingLoadingDone: state.homeReducer.isTrendingLoadingDone
 });
 
 const mapDispatchToProps = dispatch => ({

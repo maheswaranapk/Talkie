@@ -63,9 +63,12 @@ class Filter extends React.Component {
   constructor(props) {
     super(props);
 
+    
+
     this.basePath = "discover";
     var parsedParams = queryString.parse(this.props.location.search);
     if (parsedParams.sortBy) console.log(JSON.parse(parsedParams.sortBy));
+    console.log(parsedParams);
 
     this.state = {
       sortBy: parsedParams.sortBy
@@ -78,7 +81,7 @@ class Filter extends React.Component {
       page: parsedParams.page ? parsedParams.page : 1
     };
     
-    this.props.history.push({
+    this.props.history.replace({
       search: "" 
     });
   }
@@ -100,7 +103,7 @@ class Filter extends React.Component {
     console.log(cast);
     console.log(query.cast);
 
-    this.props.history.push({
+    this.props.history.replace({
       search: "?" + queryString.stringify(query)
     });
   };

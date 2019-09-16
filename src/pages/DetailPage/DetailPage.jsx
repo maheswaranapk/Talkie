@@ -146,7 +146,7 @@ class DetailPage extends React.Component {
                             "/filter?genre=" +
                             JSON.stringify({
                               value: genre.id,
-                              label: genre.name
+                              label: genre.name.replace("&", " ")
                             }) +
                             "&type=" +
                             path

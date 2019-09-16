@@ -170,7 +170,7 @@ class DetailPage extends React.Component {
                       <h1 className="t-pt-4  t-pb-4 ">{movieDetail.name}</h1>
                     )}
                     <div className="d-flex flex-row t-pt-2 t-pb-2">
-                      {movieDetail.release_date && (
+                      {(movieDetail.release_date || movieDetail.runtime) && (
                         <h6 className=" text-justify movie-info">
                           {(movieDetail.release_date
                             ? movieDetail.release_date
@@ -182,21 +182,19 @@ class DetailPage extends React.Component {
                               ? " - " + movieDetail.runtime + "mins"
                               : "")}
                         </h6>
-                      )}
-                      {movieDetail.number_of_seasons && (
+                      )} 
                         <h6 className=" text-justify movie-info">
-                          {movieDetail.number_of_seasons +
+                          {((movieDetail.number_of_seasons && movieDetail.number_of_seasons > 0) ? (movieDetail.number_of_seasons +
                             " Seasons - " +
                             movieDetail.number_of_episodes +
-                            " Episodes     " +
+                            " Episodes     " ) : "") +
                             "(" +
                             movieDetail.status +
                             ") " +
-                            (movieDetail.episode_run_time
-                              ? " - " + movieDetail.episode_run_time + "mins"
+                            ((movieDetail.episode_run_time && movieDetail.episode_run_time.length > 0)
+                              ? " - " + movieDetail.episode_run_time[0] + "mins"
                               : "")}
                         </h6>
-                      )}
                     </div>
                     <div className="t-pt-2 text-justify movie-overview t-pb-4">
                       {movieDetail.overview}
@@ -210,7 +208,7 @@ class DetailPage extends React.Component {
                   <MoviePersonRow title="Trailer" videoList={movieVideo} />
 
                   <MoviePersonRow
-                    title="Smilar Movies"
+                    title={this.state.path === MOVIE ? "Smilar Movies" : "Smilar TV Shows"}
                     movieList={movieSimilar}
                     showThree
                   />

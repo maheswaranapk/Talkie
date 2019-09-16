@@ -221,7 +221,7 @@ class Filter extends React.Component {
                     theme={this.getTheme}
                     defaultOptions={cast ? true : false}
                     value={cast}
-                    styles={{menu: (styles) => Object.assign(styles, {zIndex: 1000})}}
+                    styles={{control: (styles) => Object.assign(styles, {zIndex: 1000})}}
                   />
                   <AsyncSelect
                     className="col-12 col-md-6 crew-select multi-select"
@@ -231,7 +231,7 @@ class Filter extends React.Component {
                     loadOptions={debounce(promiseOptions, 750)}
                     theme={this.getTheme}
                     defaultOptions={crew ? true : false}
-                    styles={{menu: (styles) => Object.assign(styles, {zIndex: 1000})}}
+                    styles={{control: (styles) => Object.assign(styles, {zIndex: 1000})}}
                   />
                 </React.Fragment>
               )}

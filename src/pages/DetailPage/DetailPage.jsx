@@ -208,7 +208,7 @@ class DetailPage extends React.Component {
                   <MoviePersonRow title="Trailer" videoList={movieVideo} />
 
                   <MoviePersonRow
-                    title={this.state.path === MOVIE ? "Smilar Movies" : "Smilar TV Shows"}
+                    title={this.state.path === MOVIE ? "Similar Movies" : "Similar TV Shows"}
                     movieList={movieSimilar}
                     showThree
                   />

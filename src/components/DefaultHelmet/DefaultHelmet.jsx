@@ -13,13 +13,16 @@ const DefaultHelmet = ({ onClick }) => {
       />
       <meta
         name="description"
-        content="Talkie is a site to explore movies. Powered by TMDB."
+        content="Talkie is a site to explore movies. Powered by TMDB.">
     
+        </meta>
       
     <meta
         name="keywords"
         content="Movies, TV Shows, Actors, Actresses, Photos, User Ratings, Synopsis, Trailers, Teasers, Credits, Cast"
-      ></meta>
+      >
+
+      </meta>
       
       <meta name="image" content="https://talkie.appybot.in/favicon.ico" />
       <meta

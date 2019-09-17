@@ -21,7 +21,7 @@ const MAX_CONTAINER_WIDTH3 = 720;
 const MAX_CONTAINER_WIDTH4 = 540;
 
 const SLICK_SETTING = {
-  autoplay: false,
+  autoplay: true,
   autoplaySpeed: 5000,
   className: "slides",
   dots: false,

@@ -68,10 +68,7 @@ class PeopleDetail extends React.Component {
         ) : (
           ""
         )}
-        <div className="d-flex flex-row cursor-pointer" onClick={() => {
-          if (movie.media_type === "movie") this.props.history.push("/movie-detail/"+movie.id);
-          else  this.props.history.push("/tv-detail/"+movie.id);
-        }}>
+        <div className="d-flex flex-row" >
           <div className="year">
             {!previousItem ||
             (previousItem &&
@@ -85,7 +82,10 @@ class PeopleDetail extends React.Component {
           </div>
 
           <div className="seperator"> - </div>
-          <div className="movie-title">
+          <div className="movie-title cursor-pointer" onClick={() => {
+          if (movie.media_type === "movie") this.props.history.push("/movie-detail/"+movie.id);
+          else  this.props.history.push("/tv-detail/"+movie.id);
+        }}>
             {movie.title} {movie.name}
           </div>
           {movie.character && (

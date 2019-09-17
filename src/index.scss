@@ -166,9 +166,9 @@ body {
       max-width: 31%;
     }
 
-    @include media-breakpoint-up(lg) {
-      flex: 0 0 23.5% !important;
-      max-width: 23.5% !important;
+    @include media-breakpoint-up(xl) {
+      flex: 0 0 25% !important;
+      max-width: 25% !important;
     }
     // padding-left: 0px;
   }
@@ -181,6 +181,11 @@ body {
     @include media-breakpoint-up(md) {
       flex: 0 0 31%;
       max-width: 31%;
+    }
+
+    @include media-breakpoint-up(xl) {
+      flex: 0 0 33.3333333%;
+      max-width: 33.3333333%;
     }
   }
 

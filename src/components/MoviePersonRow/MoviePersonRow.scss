@@ -23,8 +23,20 @@ a:hover {
 
   .slick-prev:before,
   .slick-next:before {
-    font-size: 0px;
+    font-size: 50px;
+    color: transparent;
+    color: white;
   }
+
+  .slick-next:before {
+    content: '〉';
+    margin-right: -40px;
+}
+.slick-prev:before {
+  content: '〈';
+  margin-left: -40px;
+}
+
 
   .slick-prev {
     width: 50px;

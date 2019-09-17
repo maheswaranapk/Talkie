@@ -20,7 +20,7 @@ class MoviePersonRow extends React.Component {
     super(props);
     this.state = {
       showLeft: false,
-      showRight: false
+      showRight: true
     };
   }
 
@@ -28,27 +28,47 @@ class MoviePersonRow extends React.Component {
     let node = event.target;
     const scrollLeft = node.scrollLeft;
 
-    // console.log(node.scrollWidth - node.clientWidth);
-
-    // if (scrollLeft === 0) {
-    //   console.log("First Element Reached");
-    //   this.setState({
-    //     showLeft: false,
-    //     showRight: true
-    //   });
-    // } else if (scrollLeft === node.scrollWidth - node.clientWidth) {
-    //   console.log("Last Element Reached");
-    //   this.setState({
-    //     showLeft: true,
-    //     showRight: false
-    //   });
-    // } else {
-    //   this.setState({
-    //     showLeft: true,
-    //     showRight: true
-    //   });
-    // }
+    if (scrollLeft === 0) {
+      console.log("First Element Reached");
+      this.setState({
+        showLeft: false,
+        showRight: true
+      });
+    } else if (scrollLeft === node.scrollWidth - node.clientWidth) {
+      console.log("Last Element Reached");
+      this.setState({
+        showLeft: true,
+        showRight: false
+      });
+    } else {
+      this.setState({
+        showLeft: true,
+        showRight: true
+      });
+    }
   };
+
+  scrollLeft = (event) => {
+    console.log(event);
+    
+
+    let scrollContainer = document.getElementById('scroll-parent' + this.props.title)
+    
+    
+    scrollContainer.scrollTo( scrollContainer.scrollLeft - scrollContainer.clientWidth, 0, 'smooth')
+  }
+
+  scrollRight = (event) => {
+
+    console.log(event);
+
+    let scrollContainer = document.getElementById('scroll-parent' + this.props.title)
+    console.log(scrollContainer.clientWidth);
+    console.log(scrollContainer.scrollLeft);
+    
+    
+    scrollContainer.scrollTo(scrollContainer.clientWidth + scrollContainer.scrollLeft , 0, 'smooth')
+  }
 
   render() {
     let {
@@ -96,20 +116,22 @@ class MoviePersonRow extends React.Component {
               />
             )}
 
-            {(movieList || personList) && (
+            {((movieList && movieList.length > 0)|| (personList && personList.length > 0)) && (
               <React.Fragment>
-                {/* <div className="position-relative">
+                <div className="position-relative">
                   {!row && (
                     <button
                       type="button"
                       data-role="none"
-                      class={
-                        (showLeft ? "d-block" : "d-none") +
-                        " slick-arrow slick-prev"
+                      onClick={this.scrollLeft}
+                      className={
+                        (showLeft ? "d-none d-xl-block" : "d-none") +
+                        " slick-arrow slick-prev "
                       }
                     />
-                  )} */}
+                  )}
                 <div
+                  id={"scroll-parent" + this.props.title}
                   className={
                     "d-flex flex-row movie-person-row " + (row ? "row" : "")
                   }
@@ -145,17 +167,18 @@ class MoviePersonRow extends React.Component {
                       </div>
                     ))}
                 </div>
-                {/* {!row && (
+                {!row && (
                     <button
                       type="button"
                       data-role="none"
-                      class={
-                        (showRight ? "d-block" : "d-none") +
-                        " slick-arrow slick-next"
+                      onClick={this.scrollRight}
+                      className={
+                        (showRight ? "d-none d-xl-block" : "d-none") +
+                        " slick-arrow slick-next "
                       }
                     />
                   )}
-                </div> */}
+                </div>
               </React.Fragment>
             )}
 

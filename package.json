@@ -30,6 +30,7 @@
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-saga": "^1.0.5",
+    "scrollto-with-animation": "^4.5.2",
     "slick-carousel": "^1.8.1"
   },
   "scripts": {

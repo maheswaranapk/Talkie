@@ -1,6 +1,7 @@
 import React from "react";
 import api from "../../constants/api.constant.js";
 import { Link } from "react-router-dom";
+import scrollToWithAnimation from "scrollto-with-animation";
 import "./MoviePersonRow.scss";
 
 const JOB_LIST = [
@@ -48,27 +49,39 @@ class MoviePersonRow extends React.Component {
     }
   };
 
-  scrollLeft = (event) => {
-    console.log(event);
-    
+  scrollLeft = event => {
+    let scrollContainer = document.getElementById(
+      "scroll-parent" + this.props.title
+    );
 
-    let scrollContainer = document.getElementById('scroll-parent' + this.props.title)
-    
-    
-    scrollContainer.scrollTo( scrollContainer.scrollLeft - scrollContainer.clientWidth, 0, 'smooth')
-  }
+    scrollToWithAnimation(
+      scrollContainer,
+      "scrollLeft",
+      scrollContainer.scrollLeft - scrollContainer.clientWidth,
+      500,
+      "linearTween",
+      function() {
+        console.log("done!");
+      }
+    );
+  };
 
-  scrollRight = (event) => {
+  scrollRight = event => {
+    let scrollContainer = document.getElementById(
+      "scroll-parent" + this.props.title
+    );
 
-    console.log(event);
-
-    let scrollContainer = document.getElementById('scroll-parent' + this.props.title)
-    console.log(scrollContainer.clientWidth);
-    console.log(scrollContainer.scrollLeft);
-    
-    
-    scrollContainer.scrollTo(scrollContainer.clientWidth + scrollContainer.scrollLeft , 0, 'smooth')
-  }
+    scrollToWithAnimation(
+      scrollContainer,
+      "scrollLeft",
+      scrollContainer.clientWidth + scrollContainer.scrollLeft,
+      500,
+      "linearTween",
+      function() {
+        console.log("done!");
+      }
+    );
+  };
 
   render() {
     let {
@@ -116,7 +129,8 @@ class MoviePersonRow extends React.Component {
               />
             )}
 
-            {((movieList && movieList.length > 0)|| (personList && personList.length > 0)) && (
+            {((movieList && movieList.length > 0) ||
+              (personList && personList.length > 0)) && (
               <React.Fragment>
                 <div className="position-relative">
                   {!row && (
@@ -130,44 +144,48 @@ class MoviePersonRow extends React.Component {
                       }
                     />
                   )}
-                <div
-                  id={"scroll-parent" + this.props.title}
-                  className={
-                    "d-flex flex-row movie-person-row " + (row ? "row" : "")
-                  }
-                  onScroll={this.listenScrollEvent}
-                >
-                  {movieList &&
-                    movieList.length > 0 &&
-                    movieList.map(movie => (
-                      <div
-                        className={
-                          (row
-                            ? "col-6 col-lg-3 col-md-4"
-                            : showThree
-                            ? "col-poster-3"
-                            : "col-poster") + " t-pt-4 t-pb-4"
-                        }
-                      >
-                        <MovieTvCard movie={movie} character target={target} />
-                      </div>
-                    ))}
+                  <div
+                    id={"scroll-parent" + this.props.title}
+                    className={
+                      "d-flex flex-row movie-person-row " + (row ? "row" : "")
+                    }
+                    onScroll={this.listenScrollEvent}
+                  >
+                    {movieList &&
+                      movieList.length > 0 &&
+                      movieList.map(movie => (
+                        <div
+                          className={
+                            (row
+                              ? "col-6 col-lg-3 col-md-4"
+                              : showThree
+                              ? "col-poster-3"
+                              : "col-poster") + " t-pt-4 t-pb-4"
+                          }
+                        >
+                          <MovieTvCard
+                            movie={movie}
+                            character
+                            target={target}
+                          />
+                        </div>
+                      ))}
 
-                  {personList &&
-                    personList.length > 0 &&
-                    personList.map(person => (
-                      <div
-                        className={
-                          row
-                            ? "col-6 col-lg-3 col-md-4 t-pt-4 t-pb-4"
-                            : "col-poster t-pt-4 t-pb-4"
-                        }
-                      >
-                        <PersonCard person={person} />
-                      </div>
-                    ))}
-                </div>
-                {!row && (
+                    {personList &&
+                      personList.length > 0 &&
+                      personList.map(person => (
+                        <div
+                          className={
+                            row
+                              ? "col-6 col-lg-3 col-md-4 t-pt-4 t-pb-4"
+                              : "col-poster t-pt-4 t-pb-4"
+                          }
+                        >
+                          <PersonCard person={person} />
+                        </div>
+                      ))}
+                  </div>
+                  {!row && (
                     <button
                       type="button"
                       data-role="none"
@@ -206,9 +224,8 @@ const MovieTvCard = ({ movie, character, target }) => {
       to={(movie.title ? "/movie-detail/" : "/tv-detail/") + movie.id}
       target={target}
     >
-      <div className="position-relative movie-row-parent border-radius cursor-pointer"
-      >
-      <img
+      <div className="position-relative movie-row-parent border-radius cursor-pointer">
+        <img
           src={"/images/default-poster.png"}
           alt={`${movie.title} poster`}
           className="movie-row-image-place w-100 cover-img border-radius"
@@ -229,9 +246,7 @@ const MovieTvCard = ({ movie, character, target }) => {
             <div className="character-name">{movie.character}</div>
           ) : (
             <React.Fragment>
-              {movie.department && (
-                <div className="">{movie.department}</div>
-              )}
+              {movie.department && <div className="">{movie.department}</div>}
               {movie.release_date && !movie.department && (
                 <div>{movie.release_date.substring(0, 4)}</div>
               )}
@@ -250,7 +265,7 @@ const PersonCard = ({ person }) => {
   return (
     <Link to={"/people-detail/" + person.id}>
       <div className="position-relative person-row-parent h-100 d-flex flex-column border-radius cursor-pointer">
-      <img
+        <img
           src={"/images/default-profile.png"}
           alt={`${person.name} poster`}
           className="person-row-image-place w-100 cover-img border-radius"
@@ -265,7 +280,11 @@ const PersonCard = ({ person }) => {
           className="person-row-image h-100 w-100 cover-img border-radius"
         />
         <div className="person-row-info w-100 t-p-4 pt-4 text-light">
-          {person.name && <h5 className="pb-1 text-center character-cast-name">{person.name}</h5>}
+          {person.name && (
+            <h5 className="pb-1 text-center character-cast-name">
+              {person.name}
+            </h5>
+          )}
           {person.known_for_department && (
             <div className="text-center">{person.known_for_department}</div>
           )}

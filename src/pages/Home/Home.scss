@@ -49,6 +49,7 @@
 }
 
   .slick-prev {
+    height:  calc(100% - 30px);
     left: 0%;
     background-image: linear-gradient(
       to right,
@@ -64,6 +65,7 @@
     }
   }
   .slick-next {
+    height:  calc(100% - 30px);
     right: 0%;
     background-image: linear-gradient(
       to right,

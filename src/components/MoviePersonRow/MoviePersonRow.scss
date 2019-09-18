@@ -9,8 +9,8 @@ a:hover {
 }
 
   .slick-next {
+    height:  calc(100% - 30px);
     width: 50px;
-    height: 100%;
     right: 0%;
     background-image: linear-gradient(
       to right,
@@ -40,7 +40,7 @@ a:hover {
 
   .slick-prev {
     width: 50px;
-    height: 100%;
+    height:  calc(100% - 30px);
     left: 0%;
     background-image: linear-gradient(
       to right,

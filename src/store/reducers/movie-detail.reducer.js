@@ -21,6 +21,16 @@ const getDate = detail => {
   return "0000";
 };
 
+const isReleaseLater = date => {
+  var myDate = new Date(date);
+  var today = new Date((new Date()).getTime() + 100*24*60*60*1000);
+  // today.addDays(100);
+
+  return myDate > today;
+
+
+}
+
 export default function(state = initialState, action) {
   
   switch (action.type) {
@@ -64,20 +74,56 @@ export default function(state = initialState, action) {
         isPeopleDetailError: false
       };
     case types.PEOPLE_DETAIL_REQUEST_SUCCESS:
+      let data = action.payload[0].data;
       let cast = action.payload[1].data.cast;
       let crew = action.payload[1].data.crew;
+      let mergedArray = undefined;
+
+      if (crew) {
+        mergedArray = crew.reduce(function(acc, obj) {
+          var key = obj.department;
+          if (!acc[key]) {
+            acc[key] = [];
+          }
+          acc[key].push(obj);
+          return acc;
+        }, {});
+      }
+
+      if (mergedArray) {
+        Object.keys(mergedArray).map((key, index) => {
+          mergedArray[key] = mergedArray[key].sort((a, b) => {
+            return getDate(b).localeCompare(getDate(a));
+          });
+        });
+        action.payload[1].data.crew = mergedArray;
+      }
       
       let knownFor = {};
 
-      if (cast > 30) knownFor = cast;
+      console.log(mergedArray);
+      
+      
+      if (cast.length > 30 && data.known_for_department && data.known_for_department.toLowerCase().includes("acting")) knownFor = cast;
       else {
-        knownFor = cast.concat(crew);
+        if( mergedArray && mergedArray[data.known_for_department])
+          knownFor = mergedArray[data.known_for_department];
+          else {
+            if(cast && crew) knownFor = cast.concat(crew);
+            else if(cast) knownFor = cast;
+            else if(crew) knownFor = crew;
+          }
       }
+      console.log(knownFor);
       
 
       knownFor = knownFor.sort(function(a, b) {
+        if(a.vote_count > 20 && b.vote_count > 20)
+          return b.vote_average - a.vote_average;
+        else 
         return b.vote_count - a.vote_count;
       });
+      console.log(knownFor);
 
       cast = cast.sort(function(a, b) {
         return getDate(b).localeCompare(getDate(a));
@@ -88,12 +134,21 @@ export default function(state = initialState, action) {
 
       // action.payload[1].data.cast = cast;
 
-      if (knownFor && knownFor.length > 20) {
+      if (knownFor) {
         knownFor = knownFor.filter(function(obj) {
           return !(
             (obj.episode_count && obj.episode_count < 5) || (!obj.character && !obj.department) ||
-            (!obj.department && (obj.character && obj.character.length === 0 ) ||
-            (!obj.department && (obj.character && obj.character.toLowerCase().includes("uncredited"))))
+            (obj.department && obj.department.toLowerCase().includes("crew")) ||
+            (getDate(obj) && getDate(obj).includes("0000")) ||
+            (getDate(obj) && getDate(obj).length > 0 && isReleaseLater(getDate(obj))) ||
+            ((obj.character && obj.character.length === 0 ) ||
+            ((obj.character && obj.character.toLowerCase().includes("himself"))) ||
+            (obj.character && obj.character.toLowerCase().includes("cameo")) ||
+            (obj.character && obj.character.toLowerCase().includes("special appearance")) ||
+            (obj.character && obj.character.toLowerCase().includes("guest appearance")) ||
+            (obj.character && obj.character.toLowerCase().includes("presenter")) ||
+            ((obj.character && obj.character.toLowerCase().includes("uncredited"))) ||
+            ((obj.character && obj.character.toLowerCase().includes("uncredited"))))
           );
         });
       }
@@ -110,26 +165,12 @@ export default function(state = initialState, action) {
         return unique;
       }, []);
 
-      const mergedArray = crew.reduce(function (acc, obj) {
-        var key = obj.department;
-        if (!acc[key]) {
-          acc[key] = [];
-        }
-        acc[key].push(obj);
-        return acc;
-      }, {});
-    
-      Object.keys(mergedArray).map(function(key, index) {
-        mergedArray[key] = mergedArray[key].sort((a, b) => {
-          return getDate(b).localeCompare(getDate(a));
-        });        
-      });
+      
     console.log(knownFor);
     
       action.payload[1].data.knownFor =
         (knownFor && knownFor.length > 20) ? knownFor.slice(0, 20) : knownFor;
       action.payload[1].data.acting = cast;
-      action.payload[1].data.crew = mergedArray;
       
       return {
         ...state,

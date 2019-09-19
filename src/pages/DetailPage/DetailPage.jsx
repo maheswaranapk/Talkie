@@ -183,6 +183,7 @@ class DetailPage extends React.Component {
                               : "")}
                         </h6>
                       )} 
+                      {(movieDetail.number_of_seasons ||  movieDetail.number_of_episodes) && 
                         <h6 className=" text-justify movie-info">
                           {((movieDetail.number_of_seasons && movieDetail.number_of_seasons > 0) ? (movieDetail.number_of_seasons +
                             " Seasons - " +
@@ -195,6 +196,7 @@ class DetailPage extends React.Component {
                               ? " - " + movieDetail.episode_run_time[0] + "mins"
                               : "")}
                         </h6>
+                      }
                     </div>
                     <div className="t-pt-2 text-justify movie-overview t-pb-4">
                       {movieDetail.overview}

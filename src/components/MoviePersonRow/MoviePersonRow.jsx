@@ -30,13 +30,11 @@ class MoviePersonRow extends React.Component {
     const scrollLeft = node.scrollLeft;
 
     if (scrollLeft === 0) {
-      console.log("First Element Reached");
       this.setState({
         showLeft: false,
         showRight: true
       });
     } else if (scrollLeft === node.scrollWidth - node.clientWidth) {
-      console.log("Last Element Reached");
       this.setState({
         showLeft: true,
         showRight: false
@@ -61,7 +59,6 @@ class MoviePersonRow extends React.Component {
       500,
       "linearTween",
       function() {
-        console.log("done!");
       }
     );
   };
@@ -78,7 +75,6 @@ class MoviePersonRow extends React.Component {
       500,
       "linearTween",
       function() {
-        console.log("done!");
       }
     );
   };

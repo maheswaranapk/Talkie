@@ -47,7 +47,7 @@ const loadOptions = (inputValue, callback) => {
       } else if (response.data.results.length >= 4) {
         response.data.results = response.data.results.slice(0, 4);
       }
-      console.log(response.data.results);
+
       let options = response.data.results.map(result => ({
         // value: result.id,
         result: result,
@@ -114,7 +114,7 @@ class MenuBar extends React.Component {
   };
 
   handleChange = selectedOption => {
-    console.log(selectedOption);
+    
     if (selectedOption.value) {
       if (selectedOption.value.media_type === "movie")
         this.props.history.push("/movie-detail/" + selectedOption.value.id);

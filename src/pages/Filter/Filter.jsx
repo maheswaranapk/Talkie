@@ -67,8 +67,6 @@ class Filter extends React.Component {
 
     this.basePath = "discover";
     var parsedParams = queryString.parse(this.props.location.search);
-    if (parsedParams.sortBy) console.log(JSON.parse(parsedParams.sortBy));
-    console.log(parsedParams);
 
     this.state = {
       sortBy: parsedParams.sortBy
@@ -100,9 +98,6 @@ class Filter extends React.Component {
     if (cast) query.crew = JSON.stringify(crew);
     query.page = page;
 
-    console.log(cast);
-    console.log(query.cast);
-
     this.props.history.replace({
       search: "?" + queryString.stringify(query)
     });
@@ -130,7 +125,6 @@ class Filter extends React.Component {
   callApi = () => {
     const { sortBy, genre, cast, crew, selectedTag, page } = this.state;
     window.scrollTo(0, 0);
-    console.log(this.basePath);
     
     // this.setQuery();
     let apiPath =

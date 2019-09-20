@@ -23,7 +23,6 @@ export function* getList(action) {
 }
 
 export function* getSearchList(action) {
-  console.log(action);
   
   try {
     let data = yield retry(

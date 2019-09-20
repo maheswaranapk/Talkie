@@ -73,7 +73,6 @@ class ListPage extends React.Component {
   componentDidUpdate(prevProps) {
     const locationChanged =
       this.props.location.search !== prevProps.location.search;
-    console.log(this.props.location);
 
     if (locationChanged) {
       this.updateResult();

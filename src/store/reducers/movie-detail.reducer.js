@@ -101,7 +101,6 @@ export default function(state = initialState, action) {
       
       let knownFor = {};
 
-      console.log(mergedArray);
       
       
       if (cast.length > 30 && data.known_for_department && data.known_for_department.toLowerCase().includes("acting")) knownFor = cast;
@@ -114,7 +113,6 @@ export default function(state = initialState, action) {
             else if(crew) knownFor = crew;
           }
       }
-      console.log(knownFor);
       
 
       knownFor = knownFor.sort(function(a, b) {
@@ -123,7 +121,6 @@ export default function(state = initialState, action) {
         else 
         return b.vote_count - a.vote_count;
       });
-      console.log(knownFor);
 
       cast = cast.sort(function(a, b) {
         return getDate(b).localeCompare(getDate(a));
@@ -165,8 +162,6 @@ export default function(state = initialState, action) {
         return unique;
       }, []);
 
-      
-    console.log(knownFor);
     
       action.payload[1].data.knownFor =
         (knownFor && knownFor.length > 20) ? knownFor.slice(0, 20) : knownFor;

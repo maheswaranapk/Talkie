@@ -51,7 +51,6 @@ class SearchPage extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log("componentDidUpdate");
 
     const { inputValue } = this.state;
     if (inputValue !== this.props.match.params.id) {
@@ -75,7 +74,7 @@ class SearchPage extends React.Component {
 
   updateResult = () => {
     const { inputValue } = this.state;
-    console.log(this.props.location);
+    
     window.scrollTo(0, 0);
     const { path, selectedTag, page } = this.state;
 

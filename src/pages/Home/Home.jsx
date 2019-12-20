@@ -91,8 +91,8 @@ class Home extends React.Component {
         {isTrendingLoading && <Loader />}
         {trendingMovies && (
           <Slider {...SLICK_SETTING}>
-            {nowPlayingList.map(movie => (
-              <CoverImage movie={movie} />
+            {nowPlayingList.map((movie,index) => (
+              <CoverImage movie={movie} key={"Cover Image " + index}/>
             ))}
           </Slider>
         )}

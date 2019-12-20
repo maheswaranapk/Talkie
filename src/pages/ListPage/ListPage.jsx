@@ -92,7 +92,7 @@ class ListPage extends React.Component {
   };
 
   callApi = () => {
-    const { path, selectedTag, page } = this.state;
+    const { selectedTag, page } = this.state;
 
     if (
       this.props.location.search !==

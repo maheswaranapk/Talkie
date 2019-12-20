@@ -211,7 +211,6 @@ class Filter extends React.Component {
                   <AsyncSelect
                     className="col-12 col-md-6 cast-select multi-select"
                     isMulti
-                    defaultOptions
                     placeholder="Select Cast.."
                     onChange={this.handleCastChange}
                     loadOptions={debounce(promiseOptions, 750)}

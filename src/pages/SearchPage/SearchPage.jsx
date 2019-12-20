@@ -76,7 +76,7 @@ class SearchPage extends React.Component {
     const { inputValue } = this.state;
     
     window.scrollTo(0, 0);
-    const { path, selectedTag, page } = this.state;
+    const { selectedTag, page } = this.state;
 
     this.props.actions.getSearchList(
       selectedTag + "query=" + inputValue + "&page=" + page + "&"
@@ -140,7 +140,7 @@ class SearchPage extends React.Component {
   };
 
   render() {
-    const { selectedTag, path, inputValue } = this.state;
+    const { selectedTag, inputValue } = this.state;
     const { list, isListLoading, isListError } = this.props;
 
     return (

@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import DefaultHelmet from "../../components/DefaultHelmet/DefaultHelmet";
 import api from "../../constants/api.constant.js";
 import movieDetailActions from "../../store/actions/movie-detail.action";
 import MoviePersonRow from "../../components/MoviePersonRow/MoviePersonRow";
@@ -139,9 +138,10 @@ class DetailPage extends React.Component {
                     className="movie-poster-image border-radius mb-3"
                   />
                   <div className="w-100 mb-3 d-none d-xl-block">
-                    {movieDetail.genres.map(genre => {
+                    {movieDetail.genres.map((genre,index) => {
                       return (
                         <Link
+                        key={"movie-" + index}
                           to={
                             "/filter?genre=" +
                             JSON.stringify({

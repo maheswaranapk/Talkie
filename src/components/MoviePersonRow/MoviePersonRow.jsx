@@ -1,6 +1,4 @@
 import React from "react";
-import api from "../../constants/api.constant.js";
-import { Link } from "react-router-dom";
 import scrollToWithAnimation from "scrollto-with-animation";
 
 import MovieTvCard from "./MovieTvCard/MovieTvCard";
@@ -91,7 +89,6 @@ class MoviePersonRow extends React.Component {
       crewlist = [],
       videoList = [],
       row,
-      character,
       showThree,
       target
     } = this.props;
@@ -149,8 +146,9 @@ class MoviePersonRow extends React.Component {
                   >
                     {movieList &&
                       movieList.length > 0 &&
-                      movieList.map(movie => (
+                      movieList.map((movie, index) => (
                         <MovieTvCard
+                          key={"movie-" + index}
                           movie={movie}
                           character
                           target={target}
@@ -161,8 +159,8 @@ class MoviePersonRow extends React.Component {
 
                     {personList &&
                       personList.length > 0 &&
-                      personList.map(person => (
-                        <PersonCard person={person} row={row} />
+                      personList.map((person, index) => (
+                        <PersonCard person={person} row={row} key={"movie-" + index} />
                       ))}
                   </div>
                   {!row && (
@@ -183,8 +181,8 @@ class MoviePersonRow extends React.Component {
             {crewlist && crewlist.length > 0 && (
               <React.Fragment>
                 <div className="d-flex row">
-                  {crewlist.map(crew => (
-                      <CrewCard crew={crew} />
+                  {crewlist.map((crew, index) => (
+                      <CrewCard crew={crew} key={"movie-" + index} />
                   ))}
                 </div>
               </React.Fragment>

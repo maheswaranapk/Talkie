@@ -1,0 +1,33 @@
+@import "../../../styles/variables";
+@import "../../../styles/mixins";
+
+iframe {
+    width: calc(100% - 30px);
+    height: 424px;
+    border-width: 0px;
+    box-shadow: $primary 0 0 10px 3px;
+  
+    @include media-breakpoint-down(xl) {
+      margin: 15px auto;
+      min-width: 100%;
+      min-height: calc((100vw - 30px) / (16 / 9));
+      // min-width: unset;
+      // min-height: unset;
+    }
+  
+    @include media-breakpoint-up(xl) {
+      max-width: 100%;
+      max-height: calc((100vw - 40px) / (16 / 9));
+      margin: 15px 10px;
+      min-width: unset;
+      min-height: unset;
+    }
+  
+    @include media-breakpoint-down(md) {
+      min-width: unset;
+      min-height: unset;
+      max-width: 100%;
+      max-height: calc((100vw - 40px) / (16 / 9));
+      margin: 15px 15px;
+    }
+  }

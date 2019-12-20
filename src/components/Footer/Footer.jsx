@@ -10,7 +10,7 @@ export const Footer = () => {
         This product uses the TMDb API but is not endorsed or certified by TMDb.
       </div>
       <img
-        className="float-left t-ml-4 d-none d-lg-block"
+        className="float-left ml-3 d-none d-lg-block"
         src="/images/tmdb.png"
         alt="Powered By TMDB"
         height="60"

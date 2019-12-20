@@ -150,8 +150,8 @@ class SearchPage extends React.Component {
         {isListLoading && <Loader />}
         {list && list.results && (
           <div className="container">
-            <div className="movies-filter d-flex align-items-center justify-content-center justify-content-md-between t-pt-4">
-              <h5 className="d-none d-md-block text-primary t-pl-2">{"Search Results for \"" + inputValue + "\""}</h5>
+            <div className="movies-filter d-flex align-items-center justify-content-center justify-content-md-between pt-3">
+              <h5 className="d-none d-md-block text-primary pl-2">{"Search Results for \"" + inputValue + "\""}</h5>
               <ul>
                 {FILTER.map(item => (
                   <li
@@ -164,7 +164,7 @@ class SearchPage extends React.Component {
                 ))}
               </ul>
             </div>
-              <h5 className="d-block d-md-none text-primary t-pl-2 pt-3">{"Search Results for \"" + inputValue + "\""}</h5>
+              <h5 className="d-block d-md-none text-primary pl-2 pt-3">{"Search Results for \"" + inputValue + "\""}</h5>
             <MoviePersonRow
               row
               movieList={selectedTag !== Tag.PEOPLE ? list.results : undefined}

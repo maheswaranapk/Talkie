@@ -11,7 +11,7 @@ const ExternalID = ({ external }) => (
             "_blank"
           )
         }
-        className="fab fa-imdb imdb-img fa-4x t-mr-4 cursor-pointer"
+        className="fab fa-imdb imdb-img fa-4x mr-3 cursor-pointer"
       />
     )}
     {external.twitter_id && (
@@ -19,7 +19,7 @@ const ExternalID = ({ external }) => (
         onClick={() =>
           window.open("https://twitter.com/" + external.twitter_id, "_blank")
         }
-        className="fab fa-twitter twitter-img fa-4x t-mr-4 cursor-pointer"
+        className="fab fa-twitter twitter-img fa-4x mr-3 cursor-pointer"
       />
     )}
     {external.instagram_id && (
@@ -30,7 +30,7 @@ const ExternalID = ({ external }) => (
             "_blank"
           )
         }
-        className="fab fa-instagram instagram-img fa-4x t-mr-4 cursor-pointer"
+        className="fab fa-instagram instagram-img fa-4x mr-3 cursor-pointer"
       />
     )}
   </div>

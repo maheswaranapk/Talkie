@@ -15,7 +15,7 @@ export default class CoverImage extends React.Component {
     const { movie } = this.props;
     return (
       <Link to={"/movie-detail/" + movie.id}>
-        <div className="container t-pl-2 t-pr-2 cursor-pointer">
+        <div className="container px-2 cursor-pointer">
           <div className="cover-slide-parent bg-light border-radius">
             <ColorExtractor
               src={api.imageUrl + movie.backdrop_path}
@@ -29,7 +29,7 @@ export default class CoverImage extends React.Component {
               className="cover-slide-image w-100"
             />
             <div
-              className="d-flex d-md-none flex-column justify-content-end pb-2 movie-title cover-text-parent t-pl-4 t-pr-4 border-radius"
+              className="d-flex d-md-none flex-column justify-content-end pb-2 movie-title cover-text-parent px-3 border-radius"
               style={{
                 background:
                   "linear-gradient(to top, " +
@@ -42,7 +42,7 @@ export default class CoverImage extends React.Component {
               <MovieDetail movie={movie} />
             </div>
             <div
-              className="d-none d-md-flex d-lg-none flex-column justify-content-center movie-title cover-text-parent t-pl-4 t-pr-4 border-radius"
+              className="d-none d-md-flex d-lg-none flex-column justify-content-center movie-title cover-text-parent px-3 border-radius"
               style={{
                 background:
                   "linear-gradient(to right, " +
@@ -55,7 +55,7 @@ export default class CoverImage extends React.Component {
               <MovieDetail movie={movie} />
             </div>
             <div
-              className="d-none d-lg-flex flex-column justify-content-center movie-title cover-text-parent pl-5 t-pr-4 border-radius"
+              className="d-none d-lg-flex flex-column justify-content-center movie-title cover-text-parent pl-5 pr-3 border-radius"
               style={{
                 background:
                   "linear-gradient(to right, " +

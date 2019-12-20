@@ -45,7 +45,7 @@ const promiseOptions = inputValue => {
             ? api.imageUrl + cast.profile_path
             : "/images/default-profile.png") + ")"}}
               
-              className="t-pr-2 auto-complete-image"
+              className="pr-2 auto-complete-image"
               alt={cast.name}
             />
             {cast.name}
@@ -191,8 +191,8 @@ class Filter extends React.Component {
       <div className="container-fluid">
         <DefaultHelmet />
         <div className="container filter-container">
-          <div className="container t-mt-4">
-            <div className="movies-filter d-flex justify-content-center justify-content-lg-end t-pb-4">
+          <div className="container mt-3">
+            <div className="movies-filter d-flex justify-content-center justify-content-lg-end pb-3">
               <ul>
                 {MOVIE_TV_FILTER.map(item => (
                   <li

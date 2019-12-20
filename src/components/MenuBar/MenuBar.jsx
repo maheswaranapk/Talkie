@@ -57,7 +57,7 @@ const loadOptions = (inputValue, callback) => {
           <div>
             <i
               className={
-                "t-pr-2 auto-complete-image " +
+                "pr-2 auto-complete-image " +
                 (result.media_type === "person"
                   ? "fas fa-user"
                   : result.media_type === "movie"

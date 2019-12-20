@@ -138,7 +138,7 @@ class PeopleDetail extends React.Component {
             }
           >
             <div className="container row people-detail-container people-detail">
-              <div className="col-12 col-xl-4 people-detail-poster-container t-pt-4 d-flex flex-column">
+              <div className="col-12 col-xl-4 people-detail-poster-container pt-3 d-flex flex-column">
                 <img
                   src={
                     peopleDetail.profile_path
@@ -146,7 +146,7 @@ class PeopleDetail extends React.Component {
                       : "/images/default-profile.png"
                   }
                   alt={`${peopleDetail.name} poster`}
-                  className="people-profile-image border-radius t-mb-4"
+                  className="people-profile-image border-radius mb-3"
                 />
                 <Helmet>
                   <title>
@@ -175,13 +175,13 @@ class PeopleDetail extends React.Component {
 
                 {peopleExternal && <ExternalID external={peopleExternal} />}
               </div>
-              <div className="col-12 col-xl-8 text-light t-pt-4 pb-5">
+              <div className="col-12 col-xl-8 text-light pt-3 pb-5">
                 {peopleDetail.name && (
-                  <h1 className="t-pt-4  t-pb-4 ">{peopleDetail.name}</h1>
+                  <h1 className="py-3">{peopleDetail.name}</h1>
                 )}
                 {peopleDetail.biography && (
                   <ShowMoreText
-                    className="t-pt-2 text-justify people-overview t-pb-4"
+                    className="pt-2 text-justify people-overview pb-3"
                     lines={5}
                     more="Show more"
                     less="Show less"
@@ -201,7 +201,7 @@ class PeopleDetail extends React.Component {
                   movieList={peopleCredit.knownFor}
                 />
 
-                <div className="d-none d-xl-block t-pb-4">
+                <div className="d-none d-xl-block pb-3">
                   {peopleCredit.acting && peopleCredit.acting.length > 0 && (
                     <React.Fragment>
                       <h3 className="d-none d-xl-block pb-3 pt-2 movie-person-row-title">
@@ -218,7 +218,7 @@ class PeopleDetail extends React.Component {
                   )}
                   {Array.from(Object.keys(peopleCredit.crew)).map(cat => (
                     <React.Fragment>
-                      <div className="t-pb-4">
+                      <div className="pb-3">
                         <React.Fragment>
                           <h3 className="d-none d-xl-block pb-3 pt-4 movie-person-row-title">
                             {cat}
@@ -252,7 +252,7 @@ const PersonalInfo = ({ peopleDetail }) => {
 
   return (
     <React.Fragment>
-      <h4 className="text-center text-white t-pt-4 t-pb-4 d-none d-xl-block">
+      <h4 className="text-center text-white py-3 d-none d-xl-block">
         Personal Info
       </h4>
       {peopleDetail.known_for_department && (
@@ -286,7 +286,7 @@ const PersonalInfo = ({ peopleDetail }) => {
 const DetailRow = ({ title, description }) => (
   <React.Fragment>
     <div className="title-text">{title}</div>
-    <div className="description-text t-pb-4">{description}</div>
+    <div className="description-text pb-3">{description}</div>
   </React.Fragment>
 );
 

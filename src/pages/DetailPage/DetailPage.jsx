@@ -103,7 +103,7 @@ class DetailPage extends React.Component {
           >
             <div className="movie-detail container d-flex  flex-column">
               <div className="d-flex  flex-column flex-xl-row  w-100 min-height">
-                <div className="col-12 col-xl-4 movie-detail-poster-container t-pt-4 d-flex flex-column align-items-center">
+                <div className="col-12 col-xl-4 movie-detail-poster-container pt-3 d-flex flex-column align-items-center">
                 <Helmet>
                   <title>
                     {(movieDetail.name ? movieDetail.name : "")  + (movieDetail.title ? movieDetail.title : "") + " - Talkie "}
@@ -136,9 +136,9 @@ class DetailPage extends React.Component {
                         : "/images/default-poster.png"
                     }
                     alt={`${movieDetail.title} poster`}
-                    className="movie-poster-image border-radius t-mb-4"
+                    className="movie-poster-image border-radius mb-3"
                   />
-                  <div className="w-100 t-mb-4 d-none d-xl-block">
+                  <div className="w-100 mb-3 d-none d-xl-block">
                     {movieDetail.genres.map(genre => {
                       return (
                         <Link
@@ -161,15 +161,15 @@ class DetailPage extends React.Component {
                   </div>
                   {movieExternal && <ExternalID external={movieExternal} />}
                 </div>
-                <div className="col-12 col-xl-8 text-light t-pt-4 pb-5">
+                <div className="col-12 col-xl-8 text-light pt-3 pb-5">
                   <div>
                     {movieDetail.title && (
-                      <h1 className="t-pb-4 ">{movieDetail.title}</h1>
+                      <h1 className="pb-3">{movieDetail.title}</h1>
                     )}
                     {movieDetail.name && (
-                      <h1 className="t-pt-4  t-pb-4 ">{movieDetail.name}</h1>
+                      <h1 className="py-3">{movieDetail.name}</h1>
                     )}
-                    <div className="d-flex flex-row t-pt-2 t-pb-2">
+                    <div className="d-flex flex-row py-2">
                       {(movieDetail.release_date || movieDetail.runtime) && (
                         <h6 className=" text-justify movie-info">
                           {(movieDetail.release_date
@@ -198,7 +198,7 @@ class DetailPage extends React.Component {
                         </h6>
                       }
                     </div>
-                    <div className="t-pt-2 text-justify movie-overview t-pb-4">
+                    <div className="pt-2 text-justify movie-overview pb-3">
                       {movieDetail.overview}
                     </div>
                   </div>

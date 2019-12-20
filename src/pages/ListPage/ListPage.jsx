@@ -132,7 +132,7 @@ class ListPage extends React.Component {
         {list && list.results && (
           <React.Fragment>
           <div className="container">
-            <div className="movies-filter d-flex justify-content-center justify-content-lg-end t-pt-4">
+            <div className="movies-filter d-flex justify-content-center justify-content-lg-end pt-3">
               <ul>
                 {(path === MOVIE ? MOVIE_FILTER : TV_FILTER).map(item => (
                   <li

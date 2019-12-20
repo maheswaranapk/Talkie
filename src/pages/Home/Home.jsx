@@ -96,18 +96,26 @@ class Home extends React.Component {
             ))}
           </Slider>
         )}
-        {trendingMovies && (
-          <MoviePersonRow title="Trending Movies" movieList={trendingMovies} />
-        )}
-        {trendingMovies && (
-          <MoviePersonRow
-            title="Trending TV Shows"
-            movieList={trendingTvShows}
-          />
-        )}
-        {trendingPerson && (
-          <MoviePersonRow title="Trending People" personList={trendingPerson} />
-        )}
+        <div className="container mb-lg-5">
+          {trendingMovies && (
+            <MoviePersonRow
+              title="Trending Movies"
+              movieList={trendingMovies}
+            />
+          )}
+          {trendingMovies && (
+            <MoviePersonRow
+              title="Trending TV Shows"
+              movieList={trendingTvShows}
+            />
+          )}
+          {trendingPerson && (
+            <MoviePersonRow
+              title="Trending People"
+              personList={trendingPerson}
+            />
+          )}
+        </div>
         <Footer />
       </div>
     );
@@ -133,7 +141,4 @@ const mapDispatchToProps = dispatch => ({
   )
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

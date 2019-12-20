@@ -55,7 +55,7 @@ const promiseOptions = inputValue => {
       return options;
     })
     .catch(function(error) {
-      console.log(error);
+      // console.log(error);
     });
 };
 

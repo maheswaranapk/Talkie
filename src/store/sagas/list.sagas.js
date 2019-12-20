@@ -16,7 +16,7 @@ export function* getList(action) {
       payload: data
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     
     yield put({ type: actionTypes.LIST_REQUEST_ERROR, error });
   }
@@ -36,7 +36,7 @@ export function* getSearchList(action) {
       payload: data
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     
     yield put({ type: actionTypes.LIST_REQUEST_ERROR, error });
   }
@@ -55,7 +55,7 @@ export function* getDiscoverList(action) {
       payload: data
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     
     yield put({ type: actionTypes.DISCOVER_REQUEST_ERROR, error });
   }

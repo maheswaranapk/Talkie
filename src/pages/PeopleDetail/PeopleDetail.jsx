@@ -114,7 +114,7 @@ class PeopleDetail extends React.Component {
       isPeopleDetailError
     } = this.props;
 
-    console.log(isPeopleDetailError);
+    // console.log(isPeopleDetailError);
 
     return (
       <React.Fragment>
@@ -248,7 +248,7 @@ class PeopleDetail extends React.Component {
 }
 
 const PersonalInfo = ({ peopleDetail }) => {
-  console.log(peopleDetail);
+  // console.log(peopleDetail);
 
   return (
     <React.Fragment>

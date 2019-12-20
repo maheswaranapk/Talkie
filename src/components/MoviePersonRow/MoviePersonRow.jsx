@@ -95,6 +95,20 @@ class MoviePersonRow extends React.Component {
 
     const { showLeft, showRight } = this.state;
 
+    if(personList && personList.length > 0 &&  personList.length < 5 && (showLeft || showRight)) {
+      this.setState({
+        showLeft: false,
+        showRight: false
+      })
+    } 
+
+    if(movieList && movieList.length > 0 &&  movieList.length < 5 && (showLeft || showRight)) {
+      this.setState({
+        showLeft: false,
+        showRight: false
+      })
+    } 
+
     if (crewlist)
       crewlist = crewlist.filter(crew => {
         return JOB_LIST.indexOf(crew.job) > -1;

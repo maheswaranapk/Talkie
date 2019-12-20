@@ -86,6 +86,8 @@ class Home extends React.Component {
 
     return (
       <div className="container-fluid d-flex flex-column  bg-light">
+        <img src={"/images/default-poster.png"} className="d-none" alt="" />
+        <img src={"/images/default-profile.png"} className="d-none" alt=""/>
         <DefaultHelmet />
         {isTrendingError && <ErrorView onClick={this.callApi} />}
         {isTrendingLoading && <Loader />}

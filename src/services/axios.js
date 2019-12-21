@@ -2,10 +2,12 @@ import axios from "axios";
 
 const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_TMDB_APIURL,
-  headers: { "Content-Type": "application/json", Accept: "application/json" }
+  headers: {
+    "Content-Type": "application/json, text/plain, */*",
+  }
 });
 
-export const axiosService = (data) => {
+export const axiosService = data => {
   return axiosInstance
     .get(data + process.env.REACT_APP_TMDB_APIKEY)
     .then(response => {

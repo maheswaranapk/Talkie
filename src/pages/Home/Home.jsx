@@ -55,6 +55,10 @@ class Home extends React.Component {
     this.setState({ screenWidth: window.innerWidth });
   };
 
+  callApi = () => {
+    this.props.actions.getTrendingTvMovie({});
+  }
+
   calculatecenterpadding = () => {
     const { screenWidth } = this.state;
     let centerPadding = "50px";

@@ -13,6 +13,7 @@ import "./App.scss";
 
 class App extends React.Component {
   render() {
+    // document.addEventListener('contextmenu', event => event.preventDefault());
     return (
       <div className="App d-flex flex-column">
         <MenuBar />

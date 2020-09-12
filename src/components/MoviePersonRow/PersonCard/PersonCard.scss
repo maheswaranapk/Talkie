@@ -43,7 +43,7 @@
 
       .character-cast-name {
         @include media-breakpoint-down(sm) {
-          font-size: 18px;
+          font-size: pxToRem(18px);
         }
       }
 
@@ -55,7 +55,7 @@
         overflow-wrap: break-word;
 
         @include media-breakpoint-down(sm) {
-          font-size: 14px;
+          font-size: pxToRem(14px);
         }
       }
     }

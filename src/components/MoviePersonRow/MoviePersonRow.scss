@@ -23,7 +23,7 @@ a:hover {
 
   .slick-prev:before,
   .slick-next:before {
-    font-size: 50px;
+    font-size: pxToRem(50px);
     color: transparent;
     color: white;
   }

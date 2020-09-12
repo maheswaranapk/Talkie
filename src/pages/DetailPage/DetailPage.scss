@@ -50,7 +50,7 @@
   .movie-overview {
     // opacity: 0.7;
     line-height: 1.2;
-    font-size: 17px;
+    font-size: pxToRem(17px);
   }
 
   .movie-info {

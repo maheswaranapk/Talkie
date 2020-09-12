@@ -2,7 +2,7 @@ import React from "react";
 
 export const Footer = () => {
   return (
-    <div className="footer w-100 d-flex flex-column justify-content-between">
+    <div className="footer d-none d-xl-flex w-100 flex-column justify-content-between">
       <div className="text-center">
         <b>Powered by TMDB</b>
         <br />

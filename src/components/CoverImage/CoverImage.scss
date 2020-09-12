@@ -63,15 +63,12 @@
   .movie-title {
     font-weight: 500;
     color: #fff;
-    font-size: 20px;
 
     @include media-breakpoint-up(lg) {
-      font-size: 25px;
       font-weight: 500;
     }
-    @include media-breakpoint-up(xl) {
-      font-size: 30px;
-    }
+
+    font-size: pxToRem(30px);
   }
 
   .movie-overview {
@@ -83,18 +80,10 @@
     -webkit-box-orient: vertical;
     display: -webkit-box;
     overflow-wrap: break-word;
-    font-size: 10px;
+    font-size: pxToRem(18px);
 
     @include media-breakpoint-up(md) {
-      font-size: 14px;
       width: 60%;
-    }
-
-    @include media-breakpoint-up(lg) {
-      font-size: 16px;
-    }
-    @include media-breakpoint-up(xl) {
-      font-size: 18px;
     }
   }
 }

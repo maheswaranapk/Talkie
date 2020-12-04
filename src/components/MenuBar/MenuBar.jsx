@@ -14,7 +14,8 @@ const customStyles = {
     ...base,
     "&:hover": { borderColor: "#c62828" },
     border: "1px solid lightgray",
-    boxShadow: "none"
+    boxShadow: "none",
+    backgroundColor: "#f1f3f4"
   }),
   indicatorSeparator: () => {}, // removes the "stick"
   dropdownIndicator: defaultStyles => ({
@@ -152,7 +153,7 @@ class MenuBar extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className="fixed-top d-none d-lg-block desktop-menu">
+        <header className="fixed-top d-none d-lg-block desktop-menu">
           <nav className="navbar d-flex flex-row justify-content-between align-items-center flex-nowrap">
             <Link to={"/"} className="logo nav-title" href="#">
               TALKIE
@@ -198,7 +199,7 @@ class MenuBar extends React.Component {
               </NavLink>
             </div>
           </nav>
-        </div>
+        </header>
         <div className="fixed-top d-block d-lg-none mobile-menu">
           <nav className="navbar d-flex flex-row justify-content-between align-items-center flex-nowrap p-2">
             <Menu

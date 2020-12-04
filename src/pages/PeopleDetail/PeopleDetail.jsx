@@ -114,8 +114,6 @@ class PeopleDetail extends React.Component {
       isPeopleDetailError
     } = this.props;
 
-    // console.log(isPeopleDetailError);
-
     return (
       <React.Fragment>
         <DefaultHelmet />
@@ -248,8 +246,6 @@ class PeopleDetail extends React.Component {
 }
 
 const PersonalInfo = ({ peopleDetail }) => {
-  // console.log(peopleDetail);
-
   return (
     <React.Fragment>
       <h4 className="text-center text-white py-3 d-none d-xl-block">

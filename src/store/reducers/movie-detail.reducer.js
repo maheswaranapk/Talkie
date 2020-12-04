@@ -95,6 +95,7 @@ export default function(state = initialState, action) {
           mergedArray[key] = mergedArray[key].sort((a, b) => {
             return getDate(b).localeCompare(getDate(a));
           });
+          return null;
         });
         action.payload[1].data.crew = mergedArray;
       }

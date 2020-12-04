@@ -13,6 +13,7 @@
     left: 0;
     bottom: 0;
     right: 0;
+    object-fit: fill;
   }
 
   .movie-row-image-place {
@@ -48,9 +49,5 @@
     @include media-breakpoint-up(xl) {
       transform: scale(1.2);
     }
-  }
-
-  &:hover {
-    // box-shadow: $primary 0 0 8px 3px;
   }
 }

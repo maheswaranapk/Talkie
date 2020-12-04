@@ -196,7 +196,7 @@ class Filter extends React.Component {
               <ul>
                 {MOVIE_TV_FILTER.map(item => (
                   <li
-                    key={item.slug}
+                    key={item.tag}
                     className={item.tag === selectedTag ? "active" : ""}
                     onClick={() => this.ChangeFilter(item.tag)}
                   >

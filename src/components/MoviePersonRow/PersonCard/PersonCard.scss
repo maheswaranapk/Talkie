@@ -1,74 +1,67 @@
 @import "../../../styles/mixins";
 
 .person-row-parent {
-    position: relative;
-    transition: transform 0.2s;
-    overflow: hidden;
+  position: relative;
+  transition: transform 0.2s;
+  overflow: hidden;
 
-    .person-row-image {
-      object-fit: cover;
-      object-position: center;
-      background: #333333;
-      z-index: 0;
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-    } 
-    .person-row-image-place {
-      z-index: -100;
-    }
-
-    .person-row-info {
-      transition: all 500ms ease;
-      z-index: 0;
-      position: absolute;
-      height: auto;
-      bottom: 0;
-      background-image: linear-gradient(
-        to top,
-        rgba(198, 40, 40, 1),
-        rgba(198, 40, 40, 1),
-        rgba(198, 40, 40, 0.9),
-        rgba(198, 40, 40, 0.8),
-        rgba(198, 40, 40, 0.7),
-        rgba(198, 40, 40, 0.5),
-        rgba(198, 40, 40, 0)
-      );
-
-      @include media-breakpoint-up(xl) {
-        bottom: -250px;
-      }
-
-      .character-cast-name {
-        @include media-breakpoint-down(sm) {
-          font-size: pxToRem(18px);
-        }
-      }
-
-      .character-name {
-        -webkit-line-clamp: 4;
-        overflow: hidden;
-        -webkit-box-orient: vertical;
-        display: -webkit-box;
-        overflow-wrap: break-word;
-
-        @include media-breakpoint-down(sm) {
-          font-size: pxToRem(14px);
-        }
-      }
-    }
-
-    &:hover .person-row-info {
-        @include media-breakpoint-up(xl) {
-          transform: translateY(-250px);
-        }
-      }
-    
-      &:hover {
-        // box-shadow: $primary 0 0 8px 3px;
-      }
+  .person-row-image {
+    object-fit: fill;
+    background: #333333;
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+  .person-row-image-place {
+    z-index: -100;
   }
 
-  
+  .person-row-info {
+    transition: all 500ms ease;
+    z-index: 0;
+    position: absolute;
+    height: auto;
+    bottom: 0;
+    background-image: linear-gradient(
+      to top,
+      rgba(198, 40, 40, 1),
+      rgba(198, 40, 40, 1),
+      rgba(198, 40, 40, 0.9),
+      rgba(198, 40, 40, 0.8),
+      rgba(198, 40, 40, 0.7),
+      rgba(198, 40, 40, 0.5),
+      rgba(198, 40, 40, 0)
+    );
+
+    @include media-breakpoint-up(xl) {
+      bottom: -250px;
+    }
+
+    .character-cast-name {
+      @include media-breakpoint-down(sm) {
+        font-size: pxToRem(18px);
+      }
+    }
+
+    .character-name {
+      -webkit-line-clamp: 4;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      display: -webkit-box;
+      overflow-wrap: break-word;
+
+      @include media-breakpoint-down(sm) {
+        font-size: pxToRem(14px);
+      }
+    }
+  }
+
+  &:hover .person-row-info {
+    @include media-breakpoint-up(xl) {
+      transform: translateY(-250px);
+    }
+  }
+}

@@ -83,22 +83,6 @@ class SearchPage extends React.Component {
     );
   };
 
-  // componentDidUpdate(prevProps) {
-  //   const locationChanged =
-  //     this.props.location.search !== prevProps.location.search;
-  //   console.log(this.props.location);
-
-  //   if (locationChanged) {
-  //     console.log(this.props.location);
-  //     window.scrollTo(0, 0);
-  //     const { path, selectedTag, page } = this.state;
-
-  //     this.props.actions.getSearchList(
-  //       selectedTag + "query=" + inputValue + "&page=" + page + "&"
-  //     );
-  //   }
-  // }
-
   handlePageChange = page => {
     this.setState(
       {

@@ -25,31 +25,31 @@ const MOVIE = "/movie/";
 const TV_FILTER = [
   {
     title: "Popular",
-    tag: POPULAR
+    tag: POPULAR,
   },
   {
     title: "Top rated",
-    tag: TOP_RATED
+    tag: TOP_RATED,
   },
   {
     title: "Now Playing",
-    tag: TV_NOW_PLAYING
-  }
+    tag: TV_NOW_PLAYING,
+  },
 ];
 
 const MOVIE_FILTER = [
   {
     title: "Popular",
-    tag: POPULAR
+    tag: POPULAR,
   },
   {
     title: "Top rated",
-    tag: TOP_RATED
+    tag: TOP_RATED,
   },
   {
     title: "Now Playing",
-    tag: MOVIE_NOW_PLAYING
-  }
+    tag: MOVIE_NOW_PLAYING,
+  },
 ];
 
 class ListPage extends React.Component {
@@ -62,7 +62,7 @@ class ListPage extends React.Component {
       selectedTag: parsedParams.selectedTag
         ? parsedParams.selectedTag
         : POPULAR,
-      page: parsedParams.page ? parsedParams.page : 1
+      page: parsedParams.page ? parsedParams.page : 1,
     };
   }
 
@@ -85,7 +85,7 @@ class ListPage extends React.Component {
     this.props.actions.getList(path + selectedTag + "page=" + page + "&");
   };
 
-  handlePageChange = page => {
+  handlePageChange = (page) => {
     this.setState({ page }, () => {
       this.callApi(page);
     });
@@ -99,20 +99,18 @@ class ListPage extends React.Component {
       "?selectedTag=" + selectedTag + "&page=" + page
     ) {
       this.props.history.replace({
-        search: "?selectedTag=" + selectedTag + "&page=" + page
+        search: "?selectedTag=" + selectedTag + "&page=" + page,
       });
     } else {
       this.updateResult();
     }
-
-    // this.props.actions.getList(path + selectedTag + "page=" + page + "&");
   };
 
-  ChangeFilter = tag => {
+  ChangeFilter = (tag) => {
     this.setState(
       {
         selectedTag: tag,
-        page: 1
+        page: 1,
       },
       () => {
         this.callApi();
@@ -131,35 +129,35 @@ class ListPage extends React.Component {
         {isListLoading && <Loader />}
         {list && list.results && (
           <React.Fragment>
-          <div className="container">
-            <div className="movies-filter d-flex justify-content-center justify-content-lg-end pt-3">
-              <ul>
-                {(path === MOVIE ? MOVIE_FILTER : TV_FILTER).map(item => (
-                  <li
-                    key={item.slug}
-                    className={item.tag === selectedTag ? "active" : ""}
-                    onClick={() => this.ChangeFilter(item.tag)}
-                  >
-                    {item.title}
-                  </li>
-                ))}
-              </ul>
+            <div className="container">
+              <div className="movies-filter d-flex justify-content-center justify-content-lg-end pt-3">
+                <ul>
+                  {(path === MOVIE ? MOVIE_FILTER : TV_FILTER).map((item) => (
+                    <li
+                      key={item.tag}
+                      className={item.tag === selectedTag ? "active" : ""}
+                      onClick={() => this.ChangeFilter(item.tag)}
+                    >
+                      {item.title}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <MoviePersonRow row movieList={list.results} />
+              <div className="pagination-container">
+                <Pagination
+                  activePage={list.page}
+                  itemsCountPerPage={20}
+                  totalItemsCount={list.total_results}
+                  pageRangeDisplayed={5}
+                  onChange={this.handlePageChange}
+                  prevPageText={``}
+                  nextPageText={``}
+                  firstPageText={``}
+                  lastPageText={``}
+                />
+              </div>
             </div>
-            <MoviePersonRow row movieList={list.results} />
-            <div className="pagination-container">
-              <Pagination
-                activePage={list.page}
-                itemsCountPerPage={20}
-                totalItemsCount={list.total_results}
-                pageRangeDisplayed={5}
-                onChange={this.handlePageChange}
-                prevPageText={``}
-                nextPageText={``}
-                firstPageText={``}
-                lastPageText={``}
-              />
-            </div>
-          </div>
           </React.Fragment>
         )}
         <Footer />
@@ -168,19 +166,19 @@ class ListPage extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isListLoading: state.listReducer.isListLoading,
   list: state.listReducer.list,
-  isListError: state.listReducer.isListError
+  isListError: state.listReducer.isListError,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(
     {
-      getList: listAction.getList
+      getList: listAction.getList,
     },
     dispatch
-  )
+  ),
 });
 
 export default connect(

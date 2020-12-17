@@ -27,6 +27,8 @@ export default class CoverImage extends React.Component {
               src={movie.backdrop_path ? (api.imagePosterUrl + movie.backdrop_path) : "/images/default-poster.png"}
               alt={`${movie.title} `}
               className="cover-slide-image w-100"
+              width="100%"
+              height="100%"
             />
             <div
               className="d-flex d-md-none flex-column justify-content-end pb-2 movie-title cover-text-parent px-3 border-radius"

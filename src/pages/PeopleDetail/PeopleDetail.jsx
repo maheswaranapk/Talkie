@@ -145,6 +145,8 @@ class PeopleDetail extends React.Component {
                   }
                   alt={`${peopleDetail.name} poster`}
                   className="people-profile-image border-radius mb-3"
+              width="100%"
+              height="100%"
                 />
                 <Helmet>
                   <title>

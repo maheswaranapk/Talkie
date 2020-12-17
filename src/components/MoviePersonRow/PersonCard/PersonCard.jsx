@@ -13,6 +13,8 @@ const PersonCard = ({ person, row }) => {
             src={"/images/default-profile.png"}
             alt={`${person.name} poster`}
             className="person-row-image-place w-100 cover-img border-radius"
+              width="100%"
+              height="100%"
           />
           <img
             src={
@@ -22,6 +24,8 @@ const PersonCard = ({ person, row }) => {
             }
             alt={`${person.name} poster`}
             className="person-row-image h-100 w-100 cover-img border-radius"
+              width="100%"
+              height="100%"
           />
           <div className="person-row-info w-100 p-3 text-light">
             {person.name && (

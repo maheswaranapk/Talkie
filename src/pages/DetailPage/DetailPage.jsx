@@ -136,6 +136,8 @@ class DetailPage extends React.Component {
                     }
                     alt={`${movieDetail.title} poster`}
                     className="movie-poster-image border-radius mb-3"
+              width="100%"
+              height="100%"
                   />
                   <div className="w-100 mb-3 d-none d-xl-block">
                     {movieDetail.genres.map((genre,index) => {

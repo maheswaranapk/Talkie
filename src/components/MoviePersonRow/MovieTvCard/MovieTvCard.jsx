@@ -24,6 +24,8 @@ const MovieTvCard = ({ movie, character, target, row, showThree }) => {
             src={"/images/default-poster.png"}
             alt={`${movie.title} poster`}
             className="movie-row-image-place h-100 w-100 cover-img border-radius"
+              width="100%"
+              height="100%"
           />
           <img
             src={
@@ -33,6 +35,8 @@ const MovieTvCard = ({ movie, character, target, row, showThree }) => {
             }
             alt={`${movie.title} poster`}
             className="movie-row-image h-100 w-100 cover-img border-radius"
+              width="100%"
+              height="100%"
           />
           <div className="movie-row-info w-100 p-3 p-3 text-light">
             {movie.title && <h5 className="pb-1">{movie.title}</h5>}

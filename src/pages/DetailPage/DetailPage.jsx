@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { withRouter } from "react-router-dom";
-import { Helmet } from "react-helmet";
 import api from "../../constants/api.constant.js";
 import movieDetailActions from "../../store/actions/movie-detail.action";
 import MoviePersonRow from "../../components/MoviePersonRow/MoviePersonRow";
@@ -12,6 +11,7 @@ import Loader from "../../components/Loader/Loader";
 import ErrorView from "../../components/ErrorView/ErrorView";
 import { Link } from "react-router-dom";
 import "./DetailPage.scss";
+import MetaHelmet from "../../components/MetaHelmet/MetaHelmet.js";
 
 const TV = "/tv";
 const MOVIE = "/movie";
@@ -101,37 +101,13 @@ class DetailPage extends React.Component {
             }}
           >
             <div className="movie-detail container d-flex  flex-column">
-              <div className="d-flex  flex-column flex-xl-row  w-100 min-height">
-                <div className="col-12 col-xl-4 movie-detail-poster-container pt-3 d-flex flex-column align-items-center">
-                <Helmet>
-                  <title>
-                    {(movieDetail.name ? movieDetail.name : "")  + (movieDetail.title ? movieDetail.title : "") + " - Talkie "}
-                  </title>
-                  <meta
-                    name="og:title"
-                    content={(movieDetail.name ? movieDetail.name : "")  + (movieDetail.title ? movieDetail.title : "") + " - Talkie "}
-                  />
-                  <meta
-                    name="title"
-                    content={(movieDetail.name ? movieDetail.name : "")  + (movieDetail.title ? movieDetail.title : "") + " - Talkie "}
-                  />
-                  <meta
-                    name="og:description"
-                    content={
-                      movieDetail.biography ? movieDetail.biography : ""
-                    }
-                  />
-                  <meta
-                    name="description"
-                    content={
-                      movieDetail.biography ? movieDetail.biography : ""
-                    }
-                  />
-                  {movieDetail.poster_path && <>
-                    <meta property="image" content={api.imageUrl + movieDetail.poster_path} />
-                    <meta property="og:image" content={api.imageUrl + movieDetail.poster_path} />
-                  </>}
-                  </Helmet>
+              <div className="d-block d-xl-flex flex-xl-row  w-100 min-height">
+                <div className="col-12 col-xl-4 movie-detail-poster-container h-auto pt-3 d-flex flex-column align-items-center">
+                <MetaHelmet 
+                title={(movieDetail.name ? movieDetail.name : "")  + (movieDetail.title ? movieDetail.title : "")}
+                 description={movieDetail.overview ? movieDetail.overview : ""} 
+                 image={api.imageUrl + movieDetail.poster_path} />
+                
                   <img
                     src={
                       movieDetail.poster_path
@@ -139,7 +115,7 @@ class DetailPage extends React.Component {
                         : "/images/default-poster.png"
                     }
                     alt={`${movieDetail.title} poster`}
-                    className="movie-poster-image border-radius mb-3"
+                    className="movie-poster-image border-radius mb-3 h-auto"
                     width="100%"
                     height="100%"
                   />

@@ -14,6 +14,7 @@ import ErrorView from "../../components/ErrorView/ErrorView";
 import ShowMoreText from "react-show-more-text";
 
 import "./PeopleDetail.scss";
+import MetaHelmet from "../../components/MetaHelmet/MetaHelmet";
 
 class PeopleDetail extends React.Component {
   constructor(props) {
@@ -144,34 +145,14 @@ class PeopleDetail extends React.Component {
                       : "/images/default-profile.png"
                   }
                   alt={`${peopleDetail.name} poster`}
-                  className="people-profile-image border-radius mb-3"
+                  className="people-profile-image border-radius mb-3 h-auto"
                   width="100%"
                   height="100%"
                 />
-                <Helmet>
-                  <title>
-                    {(peopleDetail.name ? peopleDetail.name : "") +
-                      " - Talkie "}
-                  </title>
-                  <meta
-                    name="og:title"
-                    content={peopleDetail.name ? peopleDetail.name : ""}
-                  />
-                  <meta
-                    name="title"
-                    content={peopleDetail.name ? peopleDetail.name : ""}
-                  />
-                  <meta
-                    name="og:description"
-                    content={
-                      peopleDetail.biography ? peopleDetail.biography : ""
-                    }
-                  />
-                  {peopleDetail.profile_path && <>
-                    <meta property="image" content={api.imageUrl + peopleDetail.profile_path} />
-                    <meta property="og:image" content={api.imageUrl + peopleDetail.profile_path} />
-                  </>}
-                </Helmet>
+                <MetaHelmet 
+                  title={(peopleDetail.name ? peopleDetail.name : "") }
+                  description={peopleDetail.biography ? peopleDetail.biography : ""} 
+                  image={api.imageUrl + peopleDetail.profile_path} />
 
                 <div className="d-none d-xl-block">
                   <PersonalInfo peopleDetail={peopleDetail} />

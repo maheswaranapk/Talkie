@@ -33,7 +33,7 @@ const PersonCard = ({ person, row }) => {
                 {person.name}
               </h5>
             )}
-            {person.known_for_department && (
+            {person.known_for_department && !person.character && (
               <div className="text-center">{person.known_for_department}</div>
             )}
             {person.character && (

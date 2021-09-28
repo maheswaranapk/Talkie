@@ -23,7 +23,7 @@ const MetaHelmet = ({ title, description, image }) => {
 
       <meta
         name="twitter:card"
-        content={image ? "summary_large_image" : "summary"}
+        content={image ? "summary" : "summary"}
       />
     </Helmet>
   );

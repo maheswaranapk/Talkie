@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { withRouter } from "react-router-dom";
-import { Helmet } from "react-helmet";
 import DefaultHelmet from "../../components/DefaultHelmet/DefaultHelmet";
 import movieDetailActions from "../../store/actions/movie-detail.action";
 import api from "../../constants/api.constant.js";

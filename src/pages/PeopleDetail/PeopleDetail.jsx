@@ -83,8 +83,8 @@ class PeopleDetail extends React.Component {
 
           <div className="seperator"> - </div>
           <div className="movie-title cursor-pointer" onClick={() => {
-          if (movie.media_type === "movie") this.props.history.push("/movie-detail/"+movie.id);
-          else  this.props.history.push("/tv-detail/"+movie.id);
+          if (movie.media_type === "movie") this.props.history.push("/movie/"+movie.id);
+          else  this.props.history.push("/tv/"+movie.id);
         }}>
             {movie.title} {movie.name}
           </div>

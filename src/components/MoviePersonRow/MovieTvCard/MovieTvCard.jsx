@@ -16,7 +16,7 @@ const MovieTvCard = ({ movie, character, target, row, showThree }) => {
       }
     >
       <Link
-        to={(movie.title ? "/movie-detail/" : "/tv-detail/") + movie.id}
+        to={(movie.title ? "/movie/" : "/tv/") + movie.id}
         target={target}
       >
         <div className="position-relative movie-row-parent border-radius cursor-pointer">

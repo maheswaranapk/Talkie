@@ -118,11 +118,11 @@ class MenuBar extends React.Component {
     
     if (selectedOption.value) {
       if (selectedOption.value.media_type === "movie")
-        this.props.history.push("/movie-detail/" + selectedOption.value.id);
+        this.props.history.push("/movie/" + selectedOption.value.id);
       else if (selectedOption.value.media_type === "tv")
-        this.props.history.push("/tv-detail/" + selectedOption.value.id);
+        this.props.history.push("/tv/" + selectedOption.value.id);
       else if (selectedOption.value.media_type === "person")
-        this.props.history.push("/people-detail/" + selectedOption.value.id);
+        this.props.history.push("/people/" + selectedOption.value.id);
     } else {
       this.props.history.push(
         "/search/" + selectedOption.inputValue + selectedOption.param

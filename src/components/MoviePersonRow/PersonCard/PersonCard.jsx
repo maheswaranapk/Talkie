@@ -7,7 +7,7 @@ import "./PersonCard.scss";
 const PersonCard = ({ person, row }) => {
   return (
     <div className={(row ? "col-6 col-lg-3 col-md-4" : "col-poster") + " my-3"}>
-      <Link to={"/people-detail/" + person.id}>
+      <Link to={"/people/" + person.id}>
         <div className="position-relative person-row-parent h-100 d-flex flex-column border-radius cursor-pointer">
           <img
             src={"/images/default-profile.png"}

@@ -14,7 +14,7 @@ export default class CoverImage extends React.Component {
   render() {
     const { movie } = this.props;
     return (
-      <Link to={"/movie-detail/" + movie.id}>
+      <Link to={"/movie/" + movie.id}>
         <div className="container px-2 cursor-pointer">
           <div className="cover-slide-parent bg-light border-radius">
             <ColorExtractor

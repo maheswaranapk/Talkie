@@ -32,12 +32,12 @@ class App extends React.Component {
             />
             <Route
               exact
-              path="/movie-detail/:id"
+              path="/movie/:id"
               component={() => <DetailPage isMovie={true} />}
             />
             <Route
               exact
-              path="/tv-detail/:id"
+              path="/tv/:id"
               component={() => <DetailPage isMovie={false} />}
             />
             <Route
@@ -45,7 +45,7 @@ class App extends React.Component {
               path="/search/:id"
               component={() => <SearchPage isMovie={false} />}
             />
-            <Route exact path="/people-detail/:id" component={PeopleDetail} />
+            <Route exact path="/people/:id" component={PeopleDetail} />
             <Route exact path="/filter" component={Filter} />
           </Switch>
         </div>

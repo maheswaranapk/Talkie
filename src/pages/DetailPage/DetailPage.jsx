@@ -127,6 +127,10 @@ class DetailPage extends React.Component {
                       movieDetail.biography ? movieDetail.biography : ""
                     }
                   />
+                  {movieDetail.poster_path && <>
+                    <meta property="image" content={api.imageUrl + movieDetail.poster_path} />
+                    <meta property="og:image" content={api.imageUrl + movieDetail.poster_path} />
+                  </>}
                   </Helmet>
                   <img
                     src={
@@ -136,8 +140,8 @@ class DetailPage extends React.Component {
                     }
                     alt={`${movieDetail.title} poster`}
                     className="movie-poster-image border-radius mb-3"
-              width="100%"
-              height="100%"
+                    width="100%"
+                    height="100%"
                   />
                   <div className="w-100 mb-3 d-none d-xl-block">
                     {movieDetail.genres.map((genre,index) => {

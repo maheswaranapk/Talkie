@@ -145,8 +145,8 @@ class PeopleDetail extends React.Component {
                   }
                   alt={`${peopleDetail.name} poster`}
                   className="people-profile-image border-radius mb-3"
-              width="100%"
-              height="100%"
+                  width="100%"
+                  height="100%"
                 />
                 <Helmet>
                   <title>
@@ -167,6 +167,10 @@ class PeopleDetail extends React.Component {
                       peopleDetail.biography ? peopleDetail.biography : ""
                     }
                   />
+                  {peopleDetail.profile_path && <>
+                    <meta property="image" content={api.imageUrl + peopleDetail.profile_path} />
+                    <meta property="og:image" content={api.imageUrl + peopleDetail.profile_path} />
+                  </>}
                 </Helmet>
 
                 <div className="d-none d-xl-block">
